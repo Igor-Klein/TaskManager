@@ -3,10 +3,10 @@ class User < ApplicationRecord
   has_many :my_tasks, class_name: 'Task', foreign_key: :author_id
   has_many :assigned_tasks, class_name: 'Task', foreign_key: :assignee_id
 
-  validates :name, presence: true
-  validates :name, length: { minimum: 2 }
-  validates :surname, presence: true
-  validates :surname, length: { minimum: 2 }
+  validates :first_name, presence: true
+  validates :first_name, length: { minimum: 2 }
+  validates :last_name, presence: true
+  validates :last_name, length: { minimum: 2 }
   validates :email, presence: true
   validates :email, format: { with: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/ }
   validates :email, uniqueness: true
