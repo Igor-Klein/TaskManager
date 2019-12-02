@@ -7,6 +7,6 @@ FactoryBot.define do
     password { generate :string }
     email
     avatar { generate :string }
-    type { '' }
+    type
   end
 end
