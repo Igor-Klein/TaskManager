@@ -10,4 +10,7 @@ FactoryBot.define do
   sequence :expired_at do |_n|
     Time.now + rand(10)
   end
+  sequence :string do |n|
+    "string#{n}"
+  end
 end
