@@ -32,6 +32,7 @@ Style/AsciiComments:
   Enabled: false
 Style/For:
   Enabled: false
-
-#Metrics/LineLength:
- # Max: 120
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
