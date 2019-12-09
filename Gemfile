@@ -40,7 +40,7 @@ gem 'therubyracer'
 gem 'twitter-bootstrap-rails'
 
 group :development, :test do
-
+  gem 'coveralls', require: false
   gem 'simplecov', require: false
   gem 'factory_bot_rails'
   gem 'rubocop'
