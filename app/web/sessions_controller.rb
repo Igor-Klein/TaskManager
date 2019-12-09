@@ -21,7 +21,7 @@ class Web::SessionsController < Web::ApplicationController
     redirect_to :new_session
   end
 
-    private
+  private
 
   def session_params
     params.require(:session).permit(:email, :password)

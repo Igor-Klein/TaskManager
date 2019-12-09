@@ -24,4 +24,3 @@ class Web::SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 end
-
