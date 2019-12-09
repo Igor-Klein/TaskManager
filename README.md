@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://travis-ci.org/Igor-Klein/TaskManager.svg?branch=feature%2FTravis_CI)](https://travis-ci.org/Igor-Klein/TaskManager)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
