@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV['CI']
+if ENV['CI'] == true
   require 'coveralls'
   Coveralls.wear!
 else
