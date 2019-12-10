@@ -2,7 +2,7 @@ AllCops:
   Exclude:
     - config/initializers/secret_token.rb
     - config/initializers/simple_form_bootstrap.rb
-    - db/shema.rb
+    - db/schema.rb
     - node_modules/**/*
     - bin/*
     - vendor/**/*
