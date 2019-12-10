@@ -13,7 +13,7 @@ class Web::SessionsControllerTest < ActionDispatch::IntegrationTest
     user = create(:user, password: password)
     attrs = {
       email: user.email,
-      password: password,
+      password: password
     }
     post session_url, params: { session: attrs }
     assert_response :redirect

@@ -2,14 +2,10 @@ AllCops:
   Exclude:
     - config/initializers/secret_token.rb
     - config/initializers/simple_form_bootstrap.rb
+    - db/shema.rb
     - node_modules/**/*
     - bin/*
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
-
+    - vendor/**/*
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/ClassAndModuleChildren:
