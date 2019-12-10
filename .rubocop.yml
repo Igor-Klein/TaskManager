@@ -4,7 +4,12 @@ AllCops:
     - config/initializers/simple_form_bootstrap.rb
     - node_modules/**/*
     - bin/*
-    - vendor/bundle/ruby/2.6.0/gems/simplecov-html-0.10.2/*
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/ClassAndModuleChildren:
