@@ -12,4 +12,8 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, format: { with: /\A\S+@.+\.\S+\z/ }
   validates :email, uniqueness: true
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
