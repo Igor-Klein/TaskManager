@@ -12,6 +12,8 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Metrics/BlockLength: 
+  Max: 35
 Metrics/ClassLength:
   Max: 150
 Metrics/CyclomaticComplexity:
