@@ -25,7 +25,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   def create
     task = current_user.my_tasks.create(task_params)
 
-    respond_with(task)
+    respond_with(task, location: nil)
   end
 
   def update
