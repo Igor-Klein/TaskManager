@@ -18,27 +18,27 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def show
     task = Task.find(params[:id])
+
     respond_with(task)
   end
 
   def create
-    task = current_user.my_tasks.new(task_params)
+    task = current_user.my_tasks.create(task_params)
 
-    task.save
-    respond_with(task, location: nil)
+    respond_with(task)
   end
 
   def update
     task = Task.find(params[:id])
-
     task.update(task_params)
-    respond_with(task, json: task)
+
+    respond_with(task)
   end
 
   def destroy
     task = Task.find(params[:id])
-
     task.destroy
+
     respond_with(task)
   end
 
