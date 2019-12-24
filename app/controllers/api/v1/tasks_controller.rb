@@ -32,7 +32,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     task = Task.find(params[:id])
     task.update(task_params)
 
-    respond_with(task)
+    respond_with(task, json: task)
   end
 
   def destroy
