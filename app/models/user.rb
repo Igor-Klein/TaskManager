@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # include UserStuff
+  include UserStuff
   has_secure_password
   has_many :my_tasks, class_name: 'Task', foreign_key: :author_id
   has_many :assigned_tasks, class_name: 'Task', foreign_key: :assignee_id
@@ -13,8 +13,4 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, format: { with: /\A\S+@.+\.\S+\z/ }
   validates :email, uniqueness: true
-
-  def name
-    "#{first_name} #{last_name}"
-  end
 end
