@@ -13,9 +13,6 @@ services:
       - 3000:3000
     environment:
       - CI=$CI
-      - NODE_ENV=development
-      - RAILS_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
       - BUNDLE_PATH=/bundle_cache
       - GEM_HOME=/bundle_cache
       - GEM_PATH=/bundle_cache
