@@ -5,6 +5,6 @@ FactoryBot.define do
     name
     description
     author { create :user }
-    expired_at
+    assignee_id { create :user }
   end
 end
