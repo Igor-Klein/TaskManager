@@ -1,11 +1,10 @@
 FROM ruby:latest
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN apt-get install -y nodejs
-RUN apt-get update && apt-get install -y yarn
+RUN apt-get update -qq && apt-get install -y build-essential nodejs \
+ && rm -rf /var/lib/apt/lists/* \
+ && curl -o- -L https://yarnpkg.com/install.sh | bash
+
 
 RUN mkdir -p /task_manager
 WORKDIR /task_manager
