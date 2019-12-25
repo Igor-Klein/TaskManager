@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y yarn
 
 RUN mkdir -p /task_manager
 WORKDIR /task_manager
-RUN RAILS_ENV=production bundle exec rake assets:precompile	
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 3
