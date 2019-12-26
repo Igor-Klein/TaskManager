@@ -11,6 +11,7 @@ WORKDIR /task_manager
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 3
+RUN sudo -u app RAILS_ENV=production rake assets:precompile
 
 COPY . /task_manager
 
