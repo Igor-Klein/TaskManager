@@ -2,7 +2,6 @@
   "name": "task_manager",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.7.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -16,6 +15,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@babel/preset-react": "^7.7.4",
     "eslint-config-prettier": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.1.0",
