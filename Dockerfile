@@ -16,5 +16,7 @@ RUN bundle install --jobs 3
 
 COPY . /task_manager
 
+RUN RAILS_SECRET_KEY_BASE=secret RAILS_ENV=production bundle exec rails assets:precompile
+
 EXPOSE 3000
 CMD rm tmp/pids/server.pid; bundle exec rails s -b '0.0.0.0' -p 3000
