@@ -364,7 +364,7 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
-  webpacker (~> 4.x)
+  webpacker (~> 4.0)
   webpacker-react
 
 RUBY VERSION
