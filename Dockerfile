@@ -15,8 +15,6 @@ RUN bundle install --jobs 3
 
 COPY . /task_manager
 
-RUN yarn install
-
 RUN SECRET_KEY_BASE=secret RAILS_ENV=production bundle exec rails assets:precompile
 
 EXPOSE 3000
