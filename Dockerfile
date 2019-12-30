@@ -11,7 +11,7 @@ RUN mkdir -p /task_manager
 WORKDIR /task_manager
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle install --jobs 3
 
 COPY . /task_manager
 
