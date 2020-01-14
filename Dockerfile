@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby:2.6.5
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
@@ -14,6 +14,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 3
 
 COPY . /task_manager
+
+RUN SECRET_KEY_BASE=secret RAILS_ENV=production bundle exec rails assets:precompile
 
 EXPOSE 3000
 CMD rm tmp/pids/server.pid; bundle exec rails s -b '0.0.0.0' -p 3000

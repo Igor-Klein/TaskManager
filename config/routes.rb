@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   root to: 'web/boards#show'
 
-  post '/board', to: 'web/boards#show'
-
   namespace :admin do
     resources :users
   end
