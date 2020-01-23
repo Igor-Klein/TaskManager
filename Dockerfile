@@ -18,4 +18,5 @@ COPY . /task_manager
 RUN SECRET_KEY_BASE=secret RAILS_ENV=production bundle exec rails assets:precompile
 
 EXPOSE 3000
+EXPOSE 3035
 CMD rm tmp/pids/server.pid; bundle exec rails s -b '0.0.0.0' -p 3000
