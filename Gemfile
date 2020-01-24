@@ -7,6 +7,7 @@ ruby '2.6.5'
 
 gem 'active_model_serializers'
 gem 'foreman'
+gem 'js-routes'
 gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'responders'
