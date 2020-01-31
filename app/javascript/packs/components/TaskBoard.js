@@ -92,14 +92,26 @@ class TasksBoard extends React.Component {
     })
   }
 
+  handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
+    fetch('PUT', window.Routes.api_v1_task_path({id: cardId}, { format: 'json' }), { task: { state: targetLaneId } })
+      .then(() => {
+        this.loadLine(sourceLaneId);
+        this.loadLine(targetLaneId);
+      });
+  }
+
   render() {
     return <div>
       <h1>Your tasks</h1>
       <Board
         data={this.getBoard()}
         onLaneScroll={this.onLaneScroll}
-        components={components}
         cardsMeta={this.state}
+        draggable
+        laneDraggable={false}
+        handleDragEnd={this.handleDragEnd}
+        
+        
       />
     </div>;
   }
