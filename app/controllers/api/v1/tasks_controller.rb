@@ -7,6 +7,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
             .result
             .page(params[:page])
             .per(params[:per_page])
+            .includes(:author, :assignee)
 
     json = {
       items: tasks.map { |t| TaskSerializer.new(t).as_json },
