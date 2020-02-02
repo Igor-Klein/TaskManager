@@ -11,7 +11,6 @@ admin.save
   u.save
 end
 
-# Generate microposts for a subset of users.
 users = Developer.all
 5.times do |i|
   state = 'in_development' if i.even?
