@@ -146,7 +146,7 @@ class TasksBoard extends React.Component {
   render() {
     return <div>
       <h1>Your tasks</h1>
-      <Button variant="primary" onClick={this.handleAddShow}>Create new task</Button>
+      <Button variant="info" onClick={this.handleAddShow}>Create new task</Button>
       <Board
         data={this.getBoard()}
         onLaneScroll={this.onLaneScroll}

@@ -14,11 +14,11 @@ end
 # Generate microposts for a subset of users.
 users = Developer.all
 5.times do |i|
-  state = "in_development" if i % 2 == 0
-  state = "in_qa" if i % 3 == 0
-  state = "in_code_review" if i % 4 == 0
-  state = "ready_for_release" if i % 5 == 0
-  users.each do |user| 
+  state = 'in_development' if i.even?
+  state = 'in_qa' if (i % 3).zero?
+  state = 'in_code_review' if (i % 4).zero?
+  state = 'ready_for_release' if (i % 5).zero?
+  users.each do |user|
     Task.create(author: user, name: "#{i}_Test_ + #{user.first_name}", description: "test_#{i} + #{user.last_name}", state: state)
-  end 
+  end
 end

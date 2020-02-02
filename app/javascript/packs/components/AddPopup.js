@@ -76,10 +76,8 @@ export default class AddPopup extends React.Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" 
-            onClick={this.props.onClose}>Close</Button>
-          <Button variant="primary" 
-            onClick={this.handleCardAdd}>Save changes</Button>
+          <Button variant="secondary" onClick={this.props.onClose}>Close</Button>
+          <Button variant="success" onClick={this.handleCardAdd}>Save task</Button>
         </Modal.Footer>
       </Modal>
     )

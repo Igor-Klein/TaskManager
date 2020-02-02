@@ -52,7 +52,6 @@ export default class EditPopup extends React.Component {
       name: this.state.task.name,
       description: this.state.task.description,
       author_id: this.state.task.author.id,
-      //assignee_id: this.state.task.assignee.id,
       state: this.state.task.state
     }).then( response => {
       if (response.statusText == 'OK') {
@@ -62,30 +61,6 @@ export default class EditPopup extends React.Component {
         alert('Update failed! ' + response.status + ' - ' + response.statusText);
       }
     });
-  }
-
-  handleCardAdd = () => {
-    const { name, description, assignee } = this.state;
-    fetch('POST', window.Routes.api_v1_tasks_path(), {
-      task: {
-        name,
-        description,
-        assignee_id: assignee.id
-      }
-    }).then( response => {
-      if (response.statusText == 'Created') {
-        this.props.onClose(true);
-        this.setState({ 
-          name: '',
-          description: ''
-        });
-      }
-      else {
-        alert(`Update failed! ${response.status} - ${response.statusText}`);
-      }
-      },
-      (errors) => alert(`Update failed! ${errors}`)
-    );
   }
 
   handleCardDelete = () => {
@@ -103,7 +78,7 @@ export default class EditPopup extends React.Component {
   render () {
     if (this.state.isLoading) {
       return (
-        <Modal show={this.props.show} onHide={this.props.onClose}>
+        <Modal animation={false} show={this.props.show} onHide={this.props.onClose}>
           <Modal.Header closeButton>
             <Modal.Title>
               Info
@@ -120,7 +95,7 @@ export default class EditPopup extends React.Component {
     }
     return (
       <div>
-        <Modal show={this.props.show} onHide={this.props.onClose}>
+        <Modal animation={false} show={this.props.show} onHide={this.props.onClose}>
           <Modal.Header closeButton>
             <Modal.Title>
               Task # {this.state.task.id} [{this.state.task.state}]
@@ -130,8 +105,8 @@ export default class EditPopup extends React.Component {
           <Modal.Body>
             <Form>
               <Form.Group controlId="formTaskName">
-                <Control.Label>Task name:</Control.Label>
-                <Form.Controll
+                <Form.Label>Task name:</Form.Label>
+                <Form.Control
                   type="text"
                   value={this.state.task.name}
                   placeholder='Set the name for the task'
@@ -139,22 +114,22 @@ export default class EditPopup extends React.Component {
                 />
               </Form.Group>
               <Form.Group controlId="formDescriptionName">
-                <Control.Label>Task description:</Control.Label>
-                <Form.Controll
-                  componentClass="textarea"
+                <Form.Label>Task description:</Form.Label>
+                <Form.Control
+                  as="textarea" rows="3"
                   value={this.state.task.description}
                   placeholder='Set the description for the task'
                   onChange={this.handleDecriptionChange}
                 />
               </Form.Group>
             </Form>
-            Author: {this.state.author.first_name} {this.state.author.last_name}
+            Author: {this.state.task.author.first_name} {this.state.task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>
-            <Button bsStyle="danger" onClick={this.handleCardDelete}>Delete</Button>
-            <Button onClick={this.props.onClose}>Close</Button>
-            <Button bsStyle="primary" onClick={this.handleCardEdit}>Save changes</Button>
+            <Button variant="danger" onClick={this.handleCardDelete}>Delete</Button>
+            <Button variant="secondary" onClick={this.props.onClose}>Close</Button>
+            <Button variant="success" onClick={this.handleCardEdit}>Save changes</Button>
           </Modal.Footer>
         </Modal>
       </div>
