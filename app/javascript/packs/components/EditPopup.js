@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import UserSelect from './UserSelect';
 
 export default class EditPopup extends React.Component {
   state = {
@@ -52,6 +53,7 @@ export default class EditPopup extends React.Component {
       name: this.state.task.name,
       description: this.state.task.description,
       author_id: this.state.task.author.id,
+      assignee_id: this.state.task.assignee.id,
       state: this.state.task.state
     }).then( response => {
       if (response.statusText == 'OK') {
@@ -73,6 +75,14 @@ export default class EditPopup extends React.Component {
           alert('DELETE failed! ' + response.status + ' - ' + response.statusText);
         }
       });
+  }
+
+  handleAuthorChange = (value) => {
+    this.setState({ task: { ...this.state.task, author: value }});
+  }
+  
+  handleAssigneeChange = (value) => {
+    this.setState({ task: { ...this.state.task, assignee: value }});
   }
 
   render () {
@@ -123,9 +133,21 @@ export default class EditPopup extends React.Component {
                 />
               </Form.Group>
             </Form>
-            Author: {this.state.task.author.first_name} {this.state.task.author.last_name}
+            Author:
+            <UserSelect
+            id="Author"
+            isDisabled="true"
+            value={this.state.task.author}
+            onChange={this.handleAuthorChange}
+            />
+            Assignee:
+            <UserSelect
+              id="Assignee"
+              onChange={this.handleAssigneeChange}
+              value={this.state.task.assignee}
+            />
           </Modal.Body>
-
+          
           <Modal.Footer>
             <Button variant="danger" onClick={this.handleCardDelete}>Delete</Button>
             <Button variant="secondary" onClick={this.props.onClose}>Close</Button>

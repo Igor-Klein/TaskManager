@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import UserSelect from './UserSelect';
 
 export default class AddPopup extends React.Component {
   state = {
@@ -42,6 +43,17 @@ export default class AddPopup extends React.Component {
       (errors) => alert(`Update failed! ${errors}`)
     );
   }
+
+  handleAssigneeChange = (value) => {
+    this.setState({ ...this.state.task, assignee: value });
+  }
+
+  // handleAssigneeChange = (value) => {
+  //   const { description, assignee, name } = this.state.task;
+  //   this.setState({ task: { description, assignee: value, name }});
+  // }
+  
+
   render () {
     return(
       <Modal
@@ -74,7 +86,13 @@ export default class AddPopup extends React.Component {
               />
             </Form.Group>
           </Form>
-        </Modal.Body>
+          Assignee:
+          <UserSelect
+            id="Assignee"
+            onChange={this.handleAssigneeChange}
+            value={this.state.assignee}
+          />
+        </Modal.Body>         
         <Modal.Footer>
           <Button variant="secondary" onClick={this.props.onClose}>Close</Button>
           <Button variant="success" onClick={this.handleCardAdd}>Save task</Button>
