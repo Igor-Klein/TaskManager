@@ -11,7 +11,8 @@ gem 'js-routes'
 gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'responders'
-
+gem "plissken"
+gem 'rack', '2.0.8'
 gem 'newrelic_rpm'
 gem 'rollbar'
 

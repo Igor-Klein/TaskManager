@@ -4,8 +4,11 @@ import Board from 'react-trello';
 import { fetch } from './Fetch';
 import LaneHeader from './LaneHeader';
 import Button from 'react-bootstrap/Button';
-import AddPopup from './AddPopup';
+import CreatePopup from './CreatePopup';
 import EditPopup from './EditPopup';
+import { decamelize, camelize } from './Key';
+import TaskRepository from './TaskRepository';
+import { render } from 'react-dom';
 
 
 const components = {
@@ -157,7 +160,7 @@ class TasksBoard extends React.Component {
         components={components}
         onCardClick={this.onCardClick}        
       />
-      <AddPopup
+      <CreatePopup
       show = {this.state.addPopupShow}
       onClose={this.handleAddClose}
       />

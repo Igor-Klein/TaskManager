@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { decamelize, camelize } from './Key';
+
 
 export function authenticityToken () {
   const token = document.querySelector('meta[name="csrf-token"]')
@@ -21,5 +23,5 @@ export function fetch (method, url, body) {
     data: body,
     url
   }
-  return axios(options)
+  return axios(options).then(decamelize)
 }

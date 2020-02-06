@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
+import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware';
+
 
 export default class EditPopup extends React.Component {
   state = {
@@ -17,8 +19,8 @@ export default class EditPopup extends React.Component {
       },
       assignee: {
         id: null,
-        first_name: null,
-        last_name:  null,
+        firstName: null,
+        lastName:  null,
         email: null
       }
     },
@@ -28,16 +30,26 @@ export default class EditPopup extends React.Component {
   loadCard = (cardId) => {
     this.setState({ isLoading: true });
     fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'})).then(({data}) => {
-      this.setState({ task: data});
-      this.setState({ isLoading: false });
+      // this.setState({ task: data});
+      // this.setState({ isLoading: false });
+      this.setState( { task: data, isLoading: false })
     });
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.cardId != null && this.props.cardId !== prevProps.cardId) {
-      this.loadCard(this.props.cardId);
+    const { cardId } = this.props;
+    if (cardId != null && cardId !== prevProps.cardId) {
+      this.loadCard(cardId);
     };
   }
+
+  // componentDidMount(cardId) {
+  //   this.loadCard(cardId);
+  // }
+
+  // componentWillUnmount() {
+  //   this.setState({ isLoading: true });
+  // }
 
   handleNameChange = (e) => {
     this.setState({ task: { ...this.state.task, name: e.target.value }});
@@ -48,14 +60,16 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardEdit = () => {
-    fetch('PUT', window.Routes.api_v1_task_path(this.props.cardId, {format: 'json'}), {
-      name: this.state.task.name,
-      description: this.state.task.description,
-      author_id: this.state.task.author.id,
-      state: this.state.task.state
+    const { name, description, author, state} = this.state.task;
+    const { cardId, onClose } = this.props;
+    fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
+      name: name,
+      description: description,
+      author_id: author.id,
+      state: state
     }).then( response => {
       if (response.statusText == 'OK') {
-        this.props.onClose(this.state.task.state);
+        onClose(state);
       }
       else {
         alert('Update failed! ' + response.status + ' - ' + response.statusText);
@@ -123,7 +137,8 @@ export default class EditPopup extends React.Component {
                 />
               </Form.Group>
             </Form>
-            Author: {this.state.task.author.first_name} {this.state.task.author.last_name}
+            firstName: {this.state.task.author.firstname} 
+            ___last_name : {this.state.task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>
