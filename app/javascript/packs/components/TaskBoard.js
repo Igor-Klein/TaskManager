@@ -6,9 +6,7 @@ import LaneHeader from './LaneHeader';
 import Button from 'react-bootstrap/Button';
 import CreatePopup from './CreatePopup';
 import EditPopup from './EditPopup';
-import { decamelize, camelize } from './Key';
-import TaskRepository from './TaskRepository';
-import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 
 
 const components = {
@@ -164,11 +162,12 @@ class TasksBoard extends React.Component {
       show = {this.state.addPopupShow}
       onClose={this.handleAddClose}
       />
+      {this.state.editPopupShow && 
       <EditPopup
       show = {this.state.editPopupShow}
       onClose={this.handleEditClose}
       cardId ={this.state.editCardId}
-      />
+      />}
     </div>;
   }
 }

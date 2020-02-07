@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { fetch } from './Fetch';
-import PropTypes from 'prop-types'; 
+import  TaskRepository  from './TaskRepository';
 
 export default class CreatePopup extends React.Component {
   state = {
@@ -20,43 +19,19 @@ export default class CreatePopup extends React.Component {
   handleDecriptionChange = (e) => {
     this.setState({ description: e.target.value });
   }
-  // handleCardAdd = () => {
-  //   const { name, description, assignee } = this.state;
-    
-  //   TaskRepository.create( {
-  //       name,
-  //       description,
-  //       assignee_id: assignee.id
-  //     } ).then(() => {
-  //       this.props.onClose(true);
-  //       this.setState({ 
-  //         name: '',
-  //         description: ''
-  //       });
-  //    })
-  // }
   handleCardAdd = () => {
-    const { name, description, assignee } = this.state;
-    fetch('POST', window.Routes.api_v1_tasks_path(), {
-      task: {
+    const { name, description, assignee } = this.state
+    TaskRepository.create( {task: {
         name,
         description,
         assignee_id: assignee.id
-      }
-    }).then( response => {
-      if (response.statusText == 'Created') {
-        this.props.onClose(true);
-        this.setState({ 
-          name: '',
-          description: ''
-        });
-      }
-      else {
-        alert(`Update failed! ${response.status} - ${response.statusText}`);
-      }
-      },
-      (errors) => alert(`Update failed! ${errors}`)
-    );
+    }}).then(() => {
+      this.props.onClose(true);
+      this.setState({ 
+        name: '',
+        description: ''
+      });
+  })
   }
   render () {
     const { show, onClose } = this.props;
@@ -94,8 +69,10 @@ export default class CreatePopup extends React.Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>Close</Button>
-          <Button variant="success" onClick={this.handleCardAdd}>Save task</Button>
+          <Button variant="secondary" 
+            onClick={onClose}>Close</Button>
+          <Button variant="primary" 
+            onClick={this.handleCardAdd}>Save changes</Button>
         </Modal.Footer>
       </Modal>
     )

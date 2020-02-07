@@ -23,5 +23,5 @@ export function fetch (method, url, body) {
     data: body,
     url
   }
-  return axios(options).then(decamelize)
+  return axios(options)
 }

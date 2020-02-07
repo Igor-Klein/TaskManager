@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
 import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware';
+// import TaskRepository from './TaskRepository';
 
 
 export default class EditPopup extends React.Component {
@@ -29,6 +30,7 @@ export default class EditPopup extends React.Component {
 
   loadCard = (cardId) => {
     this.setState({ isLoading: true });
+    // TaskRepository.show().then(({data}) => {
     fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'})).then(({data}) => {
       // this.setState({ task: data});
       // this.setState({ isLoading: false });
@@ -36,20 +38,16 @@ export default class EditPopup extends React.Component {
     });
   }
 
-  componentDidUpdate (prevProps) {
-    const { cardId } = this.props;
-    if (cardId != null && cardId !== prevProps.cardId) {
-      this.loadCard(cardId);
-    };
+  // componentDidUpdate (prevProps) {
+  //   const { cardId } = this.props;
+  //   if (cardId != null && cardId !== prevProps.cardId) {
+  //     this.loadCard(cardId);
+  //   };
+  // }
+
+  componentDidMount() {
+    this.loadCard(this.props.cardId);
   }
-
-  // componentDidMount(cardId) {
-  //   this.loadCard(cardId);
-  // }
-
-  // componentWillUnmount() {
-  //   this.setState({ isLoading: true });
-  // }
 
   handleNameChange = (e) => {
     this.setState({ task: { ...this.state.task, name: e.target.value }});
@@ -62,6 +60,12 @@ export default class EditPopup extends React.Component {
   handleCardEdit = () => {
     const { name, description, author, state} = this.state.task;
     const { cardId, onClose } = this.props;
+    // TaskRepository.update ({task: {
+    //   name: name,
+    //   description: description,
+    //   author_id: author.id,
+    //   state: state
+    // }}).then( response => {
     fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
       name: name,
       description: description,
@@ -78,6 +82,7 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardDelete = () => {
+    // TaskRepository.destroy(this.props.cardId)
     fetch('DELETE', window.Routes.api_v1_task_path(this.props.cardId, { format: 'json' }))
       .then( response => {
         if (response.statusText == 'OK') {

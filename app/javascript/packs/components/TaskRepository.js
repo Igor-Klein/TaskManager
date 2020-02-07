@@ -1,7 +1,7 @@
 import { fetch } from './Fetch';
-import React from 'react';
 
-export default class TaskRepository {
+export default {
  create (task) {
     return fetch('POST', window.Routes.api_v1_tasks_path(), task)
-}}
+    }
+}
