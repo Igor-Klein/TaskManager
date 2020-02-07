@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import CreatePopup from './CreatePopup';
 import EditPopup from './EditPopup';
 import { Provider } from 'react-redux';
+import TaskRepository from './TaskRepository';
 
 
 const components = {
@@ -82,7 +83,8 @@ class TasksBoard extends React.Component {
   }
 
   fetchLine(state, page = 1) {
-    return fetch('GET', window.Routes.api_v1_tasks_path({ q: { state_eq: state }, page: page, per_page: 10, format: 'json' })).then(({data}) => {
+    return TaskRepository.index(state, page).then(({data}) => {
+    // return fetch('GET', window.Routes.api_v1_tasks_path({ q: { state_eq: state }, page: page, per_page: 10, format: 'json' })).then(({data}) => {
       return data;
     })
   }
@@ -100,8 +102,9 @@ class TasksBoard extends React.Component {
   }
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    fetch('PUT', window.Routes.api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
-      .then(() => {
+    TaskRepository.update(cardId, { task: { state: targetLaneId }}).then(() => {
+    // fetch('PUT', window.Routes.api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
+      // .then(() => {
         this.loadLine(sourceLaneId);
         this.loadLine(targetLaneId);
       });
