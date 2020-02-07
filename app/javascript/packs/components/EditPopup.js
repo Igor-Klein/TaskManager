@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
 import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware';
-// import TaskRepository from './TaskRepository';
+import TaskRepository from './TaskRepository';
 
 
 export default class EditPopup extends React.Component {
@@ -30,8 +30,8 @@ export default class EditPopup extends React.Component {
 
   loadCard = (cardId) => {
     this.setState({ isLoading: true });
-    // TaskRepository.show().then(({data}) => {
-    fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'})).then(({data}) => {
+    TaskRepository.show(cardId).then(({data}) => {
+    // fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'})).then(({data}) => {
       // this.setState({ task: data});
       // this.setState({ isLoading: false });
       this.setState( { task: data, isLoading: false })
@@ -60,18 +60,18 @@ export default class EditPopup extends React.Component {
   handleCardEdit = () => {
     const { name, description, author, state} = this.state.task;
     const { cardId, onClose } = this.props;
-    // TaskRepository.update ({task: {
-    //   name: name,
-    //   description: description,
-    //   author_id: author.id,
-    //   state: state
-    // }}).then( response => {
-    fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
+    TaskRepository.update (cardId, {task: {
       name: name,
       description: description,
       author_id: author.id,
       state: state
-    }).then( response => {
+    }}).then( response => {
+    // fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
+    //   name: name,
+    //   description: description,
+    //   author_id: author.id,
+    //   state: state
+    // }).then( response => {
       if (response.statusText == 'OK') {
         onClose(state);
       }
@@ -82,8 +82,8 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardDelete = () => {
-    // TaskRepository.destroy(this.props.cardId)
-    fetch('DELETE', window.Routes.api_v1_task_path(this.props.cardId, { format: 'json' }))
+    TaskRepository.destroy(this.props.cardId)
+    // fetch('DELETE', window.Routes.api_v1_task_path(this.props.cardId, { format: 'json' }))
       .then( response => {
         if (response.statusText == 'OK') {
           this.props.onClose(this.state.task.state);
