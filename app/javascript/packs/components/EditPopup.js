@@ -4,7 +4,6 @@ import {fetch} from './Fetch'
 import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
-import {toCamelCase, toSnakeCase} from './Util'
 
 export default class EditPopup extends React.Component {
   state = {
@@ -66,7 +65,9 @@ export default class EditPopup extends React.Component {
       //   state: state
       // }).then( response => {
       if (response.statusText == 'OK') {
+        console.log (3)
         onClose(state)
+        console.log (4)
       } else {
         alert('Update failed! ' + response.status + ' - ' + response.statusText)
       }
@@ -74,7 +75,11 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardDelete = () => {
+          console.log (1)
+
     TaskRepository.destroy(this.props.cardId).then(response => {
+      console.log (2)
+      alert('DELETE response.status failed! ' + response.status + ' - ' + response.statusText)
       if (response.statusText == 'OK') {
         this.props.onClose(this.state.task.state)
       } else {
