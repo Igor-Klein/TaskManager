@@ -6,7 +6,6 @@ import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
 import {toCamelCase, toSnakeCase} from './Util'
 
-
 export default class EditPopup extends React.Component {
   state = {
     task: {
@@ -33,7 +32,7 @@ export default class EditPopup extends React.Component {
   loadCard = cardId => {
     this.setState({isLoading: true})
     TaskRepository.show(cardId).then(({data}) => {
-      this.setState({task: toCamelCase(data), isLoading: false})
+      this.setState({task: data, isLoading: false})
     })
   }
 
@@ -129,7 +128,9 @@ export default class EditPopup extends React.Component {
                 />
               </Form.Group>
               <Form.Group controlId="formFullName">
-                <Form.Label>Author: {this.state.task.author.firstName} {this.state.task.author.lastName}</Form.Label>
+                <Form.Label>
+                  Author: {this.state.task.author.firstName} {this.state.task.author.lastName}
+                </Form.Label>
               </Form.Group>
             </Form>
           </Modal.Body>

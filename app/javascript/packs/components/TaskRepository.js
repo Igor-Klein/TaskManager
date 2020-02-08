@@ -1,7 +1,6 @@
 import {fetch} from './Fetch'
 import {toCamelCase, toSnakeCase} from './Util'
 
-
 export default {
   create(task) {
     return fetch('POST', window.Routes.api_v1_tasks_path(), task)
