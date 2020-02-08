@@ -1,13 +1,12 @@
 import axios from 'axios'
-import { decamelize, camelize } from './Key';
+import {decamelize, camelize} from './Key'
 
-
-export function authenticityToken () {
+export function authenticityToken() {
   const token = document.querySelector('meta[name="csrf-token"]')
   return token ? token.content : null
 }
 
-function headers () {
+function headers() {
   return {
     Accept: '*/*',
     'content-Type': 'application/json',
@@ -16,7 +15,7 @@ function headers () {
   }
 }
 
-export function fetch (method, url, body) {
+export function fetch(method, url, body) {
   const options = {
     method,
     headers: headers(),

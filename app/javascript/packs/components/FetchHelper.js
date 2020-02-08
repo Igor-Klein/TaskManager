@@ -1,7 +1,7 @@
-import { fetch } from './Fetch';
+import {fetch} from './Fetch'
 
-export default {  
-  post (url, body) {
+export default {
+  post(url, body) {
     return fetch('POST', url, body)
   }
 }

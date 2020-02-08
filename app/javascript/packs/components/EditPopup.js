@@ -1,10 +1,9 @@
-import React from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { fetch } from './Fetch';
-import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware';
-import TaskRepository from './TaskRepository';
-import PropTypes from 'prop-types';
-
+import React from 'react'
+import {Modal, Button, Form} from 'react-bootstrap'
+import {fetch} from './Fetch'
+import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware'
+import TaskRepository from './TaskRepository'
+import PropTypes from 'prop-types'
 
 export default class EditPopup extends React.Component {
   state = {
@@ -22,81 +21,76 @@ export default class EditPopup extends React.Component {
       assignee: {
         id: null,
         firstName: null,
-        lastName:  null,
+        lastName: null,
         email: null
       }
     },
-    isLoading: true,
+    isLoading: true
   }
 
-  loadCard = (cardId) => {
-    this.setState({ isLoading: true });
+  loadCard = cardId => {
+    this.setState({isLoading: true})
     TaskRepository.show(cardId).then(({data}) => {
-      this.setState( { task: data, isLoading: false })
-    });
+      this.setState({task: data, isLoading: false})
+    })
   }
 
   componentDidMount() {
-    this.loadCard(this.props.cardId);
+    this.loadCard(this.props.cardId)
   }
 
-  handleNameChange = (e) => {
-    this.setState({ task: { ...this.state.task, name: e.target.value }});
+  handleNameChange = e => {
+    this.setState({task: {...this.state.task, name: e.target.value}})
   }
 
-  handleDecriptionChange = (e) => {
-    this.setState({ task: { ...this.state.task, description: e.target.value }});
+  handleDecriptionChange = e => {
+    this.setState({task: {...this.state.task, description: e.target.value}})
   }
 
   handleCardEdit = () => {
-    const { name, description, author, state} = this.state.task;
-    const { cardId, onClose } = this.props;
-    TaskRepository.update (cardId, {task: {
-      name: name,
-      description: description,
-      author_id: author.id,
-      state: state
-    }}).then( response => {
-    // fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
-    //   name: name,
-    //   description: description,
-    //   author_id: author.id,
-    //   state: state
-    // }).then( response => {
+    const {name, description, author, state} = this.state.task
+    const {cardId, onClose} = this.props
+    TaskRepository.update(cardId, {
+      task: {
+        name: name,
+        description: description,
+        author_id: author.id,
+        state: state
+      }
+    }).then(response => {
+      // fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
+      //   name: name,
+      //   description: description,
+      //   author_id: author.id,
+      //   state: state
+      // }).then( response => {
       if (response.statusText == 'OK') {
-        onClose(state);
+        onClose(state)
+      } else {
+        alert('Update failed! ' + response.status + ' - ' + response.statusText)
       }
-      else {
-        alert('Update failed! ' + response.status + ' - ' + response.statusText);
-      }
-    });
+    })
   }
 
   handleCardDelete = () => {
-    TaskRepository.destroy(this.props.cardId)
-      .then( response => {
-        if (response.statusText == 'OK') {
-          this.props.onClose(this.state.task.state);
-        }
-        else {
-          alert('DELETE failed! ' + response.status + ' - ' + response.statusText);
-        }
-      });
+    TaskRepository.destroy(this.props.cardId).then(response => {
+      if (response.statusText == 'OK') {
+        this.props.onClose(this.state.task.state)
+      } else {
+        alert('DELETE failed! ' + response.status + ' - ' + response.statusText)
+      }
+    })
   }
 
-  render () {
+  render() {
     if (this.state.isLoading) {
       return (
         <Modal animation={false} show={this.props.show} onHide={this.props.onClose}>
           <Modal.Header closeButton>
-            <Modal.Title>
-              Info
-            </Modal.Title>
+            <Modal.Title>Info</Modal.Title>
           </Modal.Header>
-           <Modal.Body>
-            Your task is loading. Please be patient.
-          </Modal.Body>
-           <Modal.Footer>
+          <Modal.Body>Your task is loading. Please be patient.</Modal.Body>
+          <Modal.Footer>
             <Button onClick={this.props.onClose}>Close</Button>
           </Modal.Footer>
         </Modal>
@@ -118,28 +112,35 @@ export default class EditPopup extends React.Component {
                 <Form.Control
                   type="text"
                   value={this.state.task.name}
-                  placeholder='Set the name for the task'
+                  placeholder="Set the name for the task"
                   onChange={this.handleNameChange}
                 />
               </Form.Group>
               <Form.Group controlId="formDescriptionName">
                 <Form.Label>Task description:</Form.Label>
                 <Form.Control
-                  as="textarea" rows="3"
+                  as="textarea"
+                  rows="3"
                   value={this.state.task.description}
-                  placeholder='Set the description for the task'
+                  placeholder="Set the description for the task"
                   onChange={this.handleDecriptionChange}
                 />
               </Form.Group>
             </Form>
-            firstName: {this.state.task.author.firstname} 
+            firstName: {this.state.task.author.firstname}
             ___last_name : {this.state.task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="danger" onClick={this.handleCardDelete}>Delete</Button>
-            <Button variant="secondary" onClick={this.props.onClose}>Close</Button>
-            <Button variant="success" onClick={this.handleCardEdit}>Save changes</Button>
+            <Button variant="danger" onClick={this.handleCardDelete}>
+              Delete
+            </Button>
+            <Button variant="secondary" onClick={this.props.onClose}>
+              Close
+            </Button>
+            <Button variant="success" onClick={this.handleCardEdit}>
+              Save changes
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -149,6 +150,6 @@ export default class EditPopup extends React.Component {
 
 EditPopup.propTypes = {
   cardId: PropTypes.number,
-  show: PropTypes.bool, 
+  show: PropTypes.bool,
   onClose: PropTypes.func
-};
+}
