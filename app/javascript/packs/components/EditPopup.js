@@ -4,6 +4,8 @@ import {fetch} from './Fetch'
 import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
+import {toCamelCase, toSnakeCase} from './Util'
+
 
 export default class EditPopup extends React.Component {
   state = {
@@ -14,8 +16,8 @@ export default class EditPopup extends React.Component {
       state: null,
       author: {
         id: null,
-        first_name: null,
-        last_name: null,
+        firstName: null,
+        lastName: null,
         email: null
       },
       assignee: {
@@ -31,7 +33,7 @@ export default class EditPopup extends React.Component {
   loadCard = cardId => {
     this.setState({isLoading: true})
     TaskRepository.show(cardId).then(({data}) => {
-      this.setState({task: data, isLoading: false})
+      this.setState({task: toCamelCase(data), isLoading: false})
     })
   }
 
@@ -126,9 +128,10 @@ export default class EditPopup extends React.Component {
                   onChange={this.handleDecriptionChange}
                 />
               </Form.Group>
+              <Form.Group controlId="formFullName">
+                <Form.Label>Author: {this.state.task.author.firstName} {this.state.task.author.lastName}</Form.Label>
+              </Form.Group>
             </Form>
-            firstName: {this.state.task.author.firstname}
-            ___last_name : {this.state.task.author.last_name}
           </Modal.Body>
 
           <Modal.Footer>
