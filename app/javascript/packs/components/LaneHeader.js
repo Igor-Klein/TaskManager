@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 
 export default class LaneHeader extends React.Component {
   render () {
@@ -7,3 +9,12 @@ export default class LaneHeader extends React.Component {
     </div>
   }
 }
+
+LaneHeader.propTypes = {
+  id: PropTypes.string,
+  cards: PropTypes.array,
+  total_count: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
+};

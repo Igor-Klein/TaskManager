@@ -162,14 +162,14 @@ class TasksBoard extends React.Component {
         onCardClick={this.onCardClick}        
       />
       <CreatePopup
-      show = {this.state.addPopupShow}
+      show={this.state.addPopupShow}
       onClose={this.handleAddClose}
       />
       {this.state.editPopupShow && 
       <EditPopup
-      show = {this.state.editPopupShow}
+      show={this.state.editPopupShow}
       onClose={this.handleEditClose}
-      cardId ={this.state.editCardId}
+      cardId={this.state.editCardId}
       />}
     </div>;
   }

@@ -3,6 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { fetch } from './Fetch';
 import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware';
 import TaskRepository from './TaskRepository';
+import PropTypes from 'prop-types';
 
 
 export default class EditPopup extends React.Component {
@@ -31,19 +32,9 @@ export default class EditPopup extends React.Component {
   loadCard = (cardId) => {
     this.setState({ isLoading: true });
     TaskRepository.show(cardId).then(({data}) => {
-    // fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'})).then(({data}) => {
-      // this.setState({ task: data});
-      // this.setState({ isLoading: false });
       this.setState( { task: data, isLoading: false })
     });
   }
-
-  // componentDidUpdate (prevProps) {
-  //   const { cardId } = this.props;
-  //   if (cardId != null && cardId !== prevProps.cardId) {
-  //     this.loadCard(cardId);
-  //   };
-  // }
 
   componentDidMount() {
     this.loadCard(this.props.cardId);
@@ -83,7 +74,6 @@ export default class EditPopup extends React.Component {
 
   handleCardDelete = () => {
     TaskRepository.destroy(this.props.cardId)
-    // fetch('DELETE', window.Routes.api_v1_task_path(this.props.cardId, { format: 'json' }))
       .then( response => {
         if (response.statusText == 'OK') {
           this.props.onClose(this.state.task.state);
@@ -156,3 +146,9 @@ export default class EditPopup extends React.Component {
     )
   }
 }
+
+EditPopup.propTypes = {
+  cardId: PropTypes.number,
+  show: PropTypes.bool, 
+  onClose: PropTypes.func
+};

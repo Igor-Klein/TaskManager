@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import  TaskRepository  from './TaskRepository';
+import PropTypes from 'prop-types';
 
 export default class CreatePopup extends React.Component {
   state = {
@@ -78,3 +79,8 @@ export default class CreatePopup extends React.Component {
     )
   }
 }
+
+CreatePopup.propTypes = {
+  show: PropTypes.bool, 
+  onClose: PropTypes.func
+};
