@@ -17,15 +17,15 @@ function headers() {
 }
 
 export function fetch(method, url, data) {
-  let params = null
+  // let params = null
 
-  if (method.toLowerCase() === 'get' || method.toLowerCase() === 'delete') {
-    // If a GET or DELETE request
-    // These request types use 'params' not 'data'
-    params = {...data}
-    Object.freeze(params)
-    data = null
-  }
+  // if (method.toLowerCase() === 'get' || method.toLowerCase() === 'delete') {
+  //   // If a GET or DELETE request
+  //   // These request types use 'params' not 'data'
+  //   params = {...data}
+  //   Object.freeze(params)
+  //   data = null
+  // }
 
   axios.interceptors.response.use(
     response => {
@@ -57,11 +57,11 @@ export function fetch(method, url, data) {
     method,
     headers: headers(),
     data,
-    params, // GET and DELETE requests have params
-    // remove array params bracket
-    paramsSerializer: params => {
-      return qs.stringify(params, {indices: false})
-    },
+    // params, // GET and DELETE requests have params
+    // // remove array params bracket
+    // paramsSerializer: params => {
+    //   return qs.stringify(params, {indices: false})
+    // },
     url
   }
   return axios(options)

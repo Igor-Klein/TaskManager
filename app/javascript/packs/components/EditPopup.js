@@ -57,34 +57,14 @@ export default class EditPopup extends React.Component {
         author_id: author.id,
         state: state
       }
-    }).then(response => {
-      // fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), {
-      //   name: name,
-      //   description: description,
-      //   author_id: author.id,
-      //   state: state
-      // }).then( response => {
-      if (response.statusText == 'OK') {
-        console.log (3)
-        onClose(state)
-        console.log (4)
-      } else {
-        alert('Update failed! ' + response.status + ' - ' + response.statusText)
-      }
+    }).then(() => {
+      onClose(state)
     })
   }
 
   handleCardDelete = () => {
-          console.log (1)
-
-    TaskRepository.destroy(this.props.cardId).then(response => {
-      console.log (2)
-      alert('DELETE response.status failed! ' + response.status + ' - ' + response.statusText)
-      if (response.statusText == 'OK') {
-        this.props.onClose(this.state.task.state)
-      } else {
-        alert('DELETE failed! ' + response.status + ' - ' + response.statusText)
-      }
+    TaskRepository.destroy(this.props.cardId).then(() => {
+      this.props.onClose(this.state.task.state)
     })
   }
 
