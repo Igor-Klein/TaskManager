@@ -3,10 +3,10 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     q_params = params[:q] || { s: 'id asc' }
 
     tasks = Task
-                        .ransack(q_params)
-                        .result
-                        .page(params[:page])
-                        .per(params[:per_page])
+            .ransack(q_params)
+            .result
+            .page(params[:page])
+            .per(params[:per_page])
 
     json = {
       items: tasks.map { |t| TaskSerializer.new(t).as_json },
