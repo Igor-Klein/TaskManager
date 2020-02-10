@@ -1,7 +1,5 @@
 import React from 'react'
 import {Modal, Button, Form} from 'react-bootstrap'
-import {fetch} from './Fetch'
-import reduxApiCamelizeMiddleware from 'redux-api-camelize-middleware'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
 
@@ -54,7 +52,7 @@ export default class EditPopup extends React.Component {
       task: {
         name: name,
         description: description,
-        author_id: author.id,
+        authorId: author.id,
         state: state
       }
     }).then(() => {
@@ -69,25 +67,30 @@ export default class EditPopup extends React.Component {
   }
 
   render() {
-    if (this.state.isLoading) {
+    const {show, onClose} = this.props
+    const {isLoading} = this.state
+    const {id, state, name, description} = this.state.task
+    const {firstName, lastName} = this.state.task.author
+
+    if (isLoading) {
       return (
-        <Modal animation={false} show={this.props.show} onHide={this.props.onClose}>
+        <Modal animation={false} show={show} onHide={onClose}>
           <Modal.Header closeButton>
             <Modal.Title>Info</Modal.Title>
           </Modal.Header>
           <Modal.Body>Your task is loading. Please be patient.</Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.props.onClose}>Close</Button>
+            <Button onClick={onClose}>Close</Button>
           </Modal.Footer>
         </Modal>
       )
     }
     return (
       <div>
-        <Modal animation={false} show={this.props.show} onHide={this.props.onClose}>
+        <Modal animation={false} show={show} onHide={onClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              Task # {this.state.task.id} [{this.state.task.state}]
+              Task # {id} [{state}]
             </Modal.Title>
           </Modal.Header>
 
@@ -97,7 +100,7 @@ export default class EditPopup extends React.Component {
                 <Form.Label>Task name:</Form.Label>
                 <Form.Control
                   type="text"
-                  value={this.state.task.name}
+                  value={name}
                   placeholder="Set the name for the task"
                   onChange={this.handleNameChange}
                 />
@@ -107,14 +110,14 @@ export default class EditPopup extends React.Component {
                 <Form.Control
                   as="textarea"
                   rows="3"
-                  value={this.state.task.description}
+                  value={description}
                   placeholder="Set the description for the task"
                   onChange={this.handleDecriptionChange}
                 />
               </Form.Group>
               <Form.Group controlId="formFullName">
                 <Form.Label>
-                  Author: {this.state.task.author.firstName} {this.state.task.author.lastName}
+                  Author: {firstName} {lastName}
                 </Form.Label>
               </Form.Group>
             </Form>
@@ -124,7 +127,7 @@ export default class EditPopup extends React.Component {
             <Button variant="danger" onClick={this.handleCardDelete}>
               Delete
             </Button>
-            <Button variant="secondary" onClick={this.props.onClose}>
+            <Button variant="secondary" onClick={onClose}>
               Close
             </Button>
             <Button variant="success" onClick={this.handleCardEdit}>
@@ -138,7 +141,7 @@ export default class EditPopup extends React.Component {
 }
 
 EditPopup.propTypes = {
-  cardId: PropTypes.number,
-  show: PropTypes.bool,
-  onClose: PropTypes.func
+  cardId: PropTypes.number.isRequired,
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 }

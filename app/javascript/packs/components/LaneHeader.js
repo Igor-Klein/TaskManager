@@ -12,7 +12,7 @@ export default class LaneHeader extends React.Component {
 }
 
 LaneHeader.propTypes = {
-  id: PropTypes.string,
-  cards: PropTypes.array,
-  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  id: PropTypes.string.isRequired,
+  cards: PropTypes.array.isRequired,
+  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 }

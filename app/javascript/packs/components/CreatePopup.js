@@ -9,8 +9,8 @@ export default class CreatePopup extends React.Component {
     description: '',
     assignee: {
       id: null,
-      first_name: null,
-      last_name: null,
+      firstName: null,
+      lastName: null,
       email: null
     }
   }
@@ -20,16 +20,16 @@ export default class CreatePopup extends React.Component {
   handleDecriptionChange = e => {
     this.setState({description: e.target.value})
   }
-  handleCardAdd = () => {
+  handleCardCreate = () => {
     const {name, description, assignee} = this.state
     TaskRepository.create({
       task: {
         name,
         description,
-        assignee_id: assignee.id
+        assigneeId: assignee.id
       }
     }).then(() => {
-      this.props.onTaskAdded()
+      this.props.onTaskCreate()
       this.setState({
         name: '',
         description: ''
@@ -37,7 +37,7 @@ export default class CreatePopup extends React.Component {
     })
   }
   render() {
-    const {show, onClose, onTaskAdded} = this.props
+    const {show, onClose, onTaskCreate} = this.props
     const {name, description} = this.state
     return (
       <Modal size="lg" animation={false} show={show} onHide={onClose}>
@@ -71,7 +71,7 @@ export default class CreatePopup extends React.Component {
           <Button variant="secondary" onClick={onClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={this.handleCardAdd}>
+          <Button variant="primary" onClick={this.handleCardCreate}>
             Save changes
           </Button>
         </Modal.Footer>
@@ -81,7 +81,7 @@ export default class CreatePopup extends React.Component {
 }
 
 CreatePopup.propTypes = {
-  show: PropTypes.bool,
-  onClose: PropTypes.func,
-  onTaskAdded: PropTypes.func
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onTaskCreate: PropTypes.func.isRequired
 }

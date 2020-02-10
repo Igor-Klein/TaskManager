@@ -1,12 +1,10 @@
 import {hot} from 'react-hot-loader/root'
 import React from 'react'
 import Board from 'react-trello'
-import {fetch} from './Fetch'
 import LaneHeader from './LaneHeader'
 import Button from 'react-bootstrap/Button'
 import CreatePopup from './CreatePopup'
 import EditPopup from './EditPopup'
-import {Provider} from 'react-redux'
 import TaskRepository from './TaskRepository'
 
 const components = {
@@ -15,16 +13,16 @@ const components = {
 class TasksBoard extends React.Component {
   state = {
     board: {
-      new_task: null,
-      in_development: null,
-      in_qa: null,
-      in_code_review: null,
-      ready_for_release: null,
+      newTask: null,
+      inDevelopment: null,
+      inQa: null,
+      inCodeReview: null,
+      readyForelease: null,
       released: null,
       archived: null
     },
-    addPopupShow: false,
-    editPopupShow: false,
+    isCreateModalOpen: false,
+    isEditModalOpen: false,
     editCardId: null
   }
 
@@ -108,16 +106,16 @@ class TasksBoard extends React.Component {
     })
   }
 
-  handleAddShow = () => {
-    this.setState({addPopupShow: true})
+  handleCreateModalOpen = () => {
+    this.setState({isCreateModalOpen: true})
   }
 
-  handleAddHide = () => {
-    this.setState({addPopupShow: false})
+  handleCreateHide = () => {
+    this.setState({isCreateModalOpen: false})
   }
 
-  handleTaskAdded = () => {
-    this.handleAddHide();
+  handleTaskCreated = () => {
+    this.handleCreateHide();
     this.loadLine('new_task')
   }
 
@@ -127,7 +125,7 @@ class TasksBoard extends React.Component {
   }
 
   handleEditClose = (edited = '') => {
-    this.setState({editPopupShow: false, editCardId: null})
+    this.setState({isEditModalOpen: false, editCardId: null})
     switch (edited) {
       case 'new_task':
       case 'in_development':
@@ -144,14 +142,14 @@ class TasksBoard extends React.Component {
   }
 
   handleEditShow = () => {
-    this.setState({editPopupShow: true})
+    this.setState({isEditModalOpen: true})
   }
 
   render() {
     return (
       <div>
         <h1>Your tasks</h1>
-        <Button variant="info" onClick={this.handleAddShow}>
+        <Button variant="info" onClick={this.handleCreateModalOpen}>
           Create new task
         </Button>
         <Board
@@ -164,9 +162,9 @@ class TasksBoard extends React.Component {
           components={components}
           onCardClick={this.onCardClick}
         />
-        <CreatePopup show={this.state.addPopupShow} onClose={this.handleAddHide} onTaskAdded={this.handleTaskAdded} />
-        {this.state.editPopupShow && (
-          <EditPopup show={this.state.editPopupShow} onClose={this.handleEditClose} cardId={this.state.editCardId} />
+        <CreatePopup show={this.state.isCreateModalOpen} onClose={this.handleCreateHide} onTaskCreate={this.handleTaskCreated} />
+        {this.state.isEditModalOpen && (
+          <EditPopup show={this.state.isEditModalOpen} onClose={this.handleEditClose} cardId={this.state.editCardId} />
         )}
       </div>
     )

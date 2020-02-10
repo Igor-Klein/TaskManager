@@ -1,5 +1,4 @@
 import axios from 'axios'
-import qs from 'qs'
 import {toCamelCase, toSnakeCase} from './Util'
 
 export function authenticityToken() {

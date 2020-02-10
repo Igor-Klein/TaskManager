@@ -19,6 +19,7 @@ export default {
     return fetch('GET', window.Routes.api_v1_task_path(cardId, {format: 'json'}))
   },
   update(cardId, task) {
+
     return fetch('PUT', window.Routes.api_v1_task_path(cardId, {format: 'json'}), task).then(response => {
       if (response.statusText == 'OK') {
         console.log('UPDATE OK')
