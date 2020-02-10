@@ -32,4 +32,3 @@ yarn-debug.log*
 
 vendor/cache
 /coverage/*
-/js-routes

@@ -10,6 +10,6 @@
 //= require_tree .
 //= require js-routes
 
-$(function(){
-    /* Your JavaScript goes here... */
-  });
+$(function() {
+  /* Your JavaScript goes here... */
+})
