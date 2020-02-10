@@ -85,7 +85,6 @@ class TasksBoard extends React.Component {
 
   fetchLine(state, page = 1) {
     return TaskRepository.index(state, page).then(({data}) => {
-      // return fetch('GET', window.Routes.api_v1_tasks_path({ q: { state_eq: state }, page: page, per_page: 10, format: 'json' })).then(({data}) => {
       return data
     })
   }
@@ -104,8 +103,6 @@ class TasksBoard extends React.Component {
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     TaskRepository.update(cardId, {task: {state: targetLaneId}}).then(() => {
-      // fetch('PUT', window.Routes.api_v1_task_path(cardId, { format: 'json' }), { task: { state: targetLaneId } })
-      // .then(() => {
       this.loadLine(sourceLaneId)
       this.loadLine(targetLaneId)
     })
@@ -115,11 +112,13 @@ class TasksBoard extends React.Component {
     this.setState({addPopupShow: true})
   }
 
-  handleAddClose = (added = false) => {
+  handleAddHide = () => {
     this.setState({addPopupShow: false})
-    if (added == true) {
-      this.loadLine('new_task')
-    }
+  }
+
+  handleTaskAdded = () => {
+    this.setState({addPopupShow: false})
+    this.loadLine('new_task')
   }
 
   onCardClick = cardId => {
@@ -165,7 +164,7 @@ class TasksBoard extends React.Component {
           components={components}
           onCardClick={this.onCardClick}
         />
-        <CreatePopup show={this.state.addPopupShow} onClose={this.handleAddClose} />
+        <CreatePopup show={this.state.addPopupShow} onClose={this.handleAddHide} onTaskAdded={this.handleTaskAdded} />
         {this.state.editPopupShow && (
           <EditPopup show={this.state.editPopupShow} onClose={this.handleEditClose} cardId={this.state.editCardId} />
         )}

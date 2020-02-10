@@ -29,7 +29,7 @@ export default class CreatePopup extends React.Component {
         assignee_id: assignee.id
       }
     }).then(() => {
-      this.props.onClose(true)
+      this.props.onTaskAdded()
       this.setState({
         name: '',
         description: ''
@@ -37,7 +37,7 @@ export default class CreatePopup extends React.Component {
     })
   }
   render() {
-    const {show, onClose} = this.props
+    const {show, onClose, onTaskAdded} = this.props
     const {name, description} = this.state
     return (
       <Modal size="lg" animation={false} show={show} onHide={onClose}>
@@ -82,5 +82,6 @@ export default class CreatePopup extends React.Component {
 
 CreatePopup.propTypes = {
   show: PropTypes.bool,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  onTaskAdded: PropTypes.func
 }

@@ -17,15 +17,6 @@ function headers() {
 }
 
 export function fetch(method, url, data) {
-  // let params = null
-
-  // if (method.toLowerCase() === 'get' || method.toLowerCase() === 'delete') {
-  //   // If a GET or DELETE request
-  //   // These request types use 'params' not 'data'
-  //   params = {...data}
-  //   Object.freeze(params)
-  //   data = null
-  // }
 
   axios.interceptors.response.use(
     response => {
@@ -40,7 +31,6 @@ export function fetch(method, url, data) {
     }
   )
 
-  // Add a request interceptor and snakeCase POST data (for django)
   axios.interceptors.request.use(
     config => {
       config.params = toSnakeCase(config.params)
@@ -57,11 +47,6 @@ export function fetch(method, url, data) {
     method,
     headers: headers(),
     data,
-    // params, // GET and DELETE requests have params
-    // // remove array params bracket
-    // paramsSerializer: params => {
-    //   return qs.stringify(params, {indices: false})
-    // },
     url
   }
   return axios(options)
