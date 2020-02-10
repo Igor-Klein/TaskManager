@@ -4,10 +4,9 @@
 // that code so it'll be compiled.
 
 import WebpackerReact from 'webpacker-react'
-// import TaskBoard from './components/TaskBoard'
-import App from './App'
+import TaskBoard from './components/TaskBoard'
 
-WebpackerReact.setup({App})
+WebpackerReact.setup({TasksBoard})
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
