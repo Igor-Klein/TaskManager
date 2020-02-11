@@ -115,7 +115,7 @@ class TasksBoard extends React.Component {
   }
 
   handleTaskCreated = () => {
-    this.handleCreateHide();
+    this.handleCreateHide()
     this.loadLine('new_task')
   }
 
@@ -162,7 +162,11 @@ class TasksBoard extends React.Component {
           components={components}
           onCardClick={this.onCardClick}
         />
-        <CreatePopup show={this.state.isCreateModalOpen} onClose={this.handleCreateHide} onTaskCreate={this.handleTaskCreated} />
+        <CreatePopup
+          show={this.state.isCreateModalOpen}
+          onClose={this.handleCreateHide}
+          onTaskCreate={this.handleTaskCreated}
+        />
         {this.state.isEditModalOpen && (
           <EditPopup show={this.state.isEditModalOpen} onClose={this.handleEditClose} cardId={this.state.editCardId} />
         )}
