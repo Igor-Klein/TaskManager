@@ -44,4 +44,4 @@ function toSnakeCase(object) {
   })
 }
 
-export {toCamelCase, toSnakeCase}
+export { toCamelCase, toSnakeCase }

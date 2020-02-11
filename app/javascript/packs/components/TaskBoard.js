@@ -1,4 +1,4 @@
-import {hot} from 'react-hot-loader/root'
+import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import Board from 'react-trello'
 import LaneHeader from './LaneHeader'
@@ -82,13 +82,13 @@ class TasksBoard extends React.Component {
   }
 
   fetchLine(state, page = 1) {
-    return TaskRepository.index(state, page).then(({data}) => {
+    return TaskRepository.index(state, page).then(({ data }) => {
       return data
     })
   }
 
   onLaneScroll = (requestedPage, state) => {
-    return this.fetchLine(state, requestedPage).then(({items}) => {
+    return this.fetchLine(state, requestedPage).then(({ items }) => {
       return items.map(task => {
         return {
           ...task,
@@ -100,18 +100,18 @@ class TasksBoard extends React.Component {
   }
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    TaskRepository.update(cardId, {task: {state: targetLaneId}}).then(() => {
+    TaskRepository.update(cardId, { task: { state: targetLaneId } }).then(() => {
       this.loadLine(sourceLaneId)
       this.loadLine(targetLaneId)
     })
   }
 
   handleCreateModalOpen = () => {
-    this.setState({isCreateModalOpen: true})
+    this.setState({ isCreateModalOpen: true })
   }
 
   handleCreateHide = () => {
-    this.setState({isCreateModalOpen: false})
+    this.setState({ isCreateModalOpen: false })
   }
 
   handleTaskCreated = () => {
@@ -120,12 +120,12 @@ class TasksBoard extends React.Component {
   }
 
   onCardClick = cardId => {
-    this.setState({editCardId: cardId})
+    this.setState({ editCardId: cardId })
     this.handleEditShow()
   }
 
   handleEditClose = (edited = '') => {
-    this.setState({isEditModalOpen: false, editCardId: null})
+    this.setState({ isEditModalOpen: false, editCardId: null })
     switch (edited) {
       case 'new_task':
       case 'in_development':
@@ -142,7 +142,7 @@ class TasksBoard extends React.Component {
   }
 
   handleEditShow = () => {
-    this.setState({isEditModalOpen: true})
+    this.setState({ isEditModalOpen: true })
   }
 
   render() {

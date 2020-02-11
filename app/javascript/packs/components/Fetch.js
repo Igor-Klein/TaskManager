@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {toCamelCase, toSnakeCase} from './Util'
+import { toCamelCase, toSnakeCase } from './Util'
 
 export function authenticityToken() {
   const token = document.querySelector('meta[name="csrf-token"]')
@@ -16,7 +16,6 @@ function headers() {
 }
 
 export function fetch(method, url, data) {
-
   axios.interceptors.response.use(
     response => {
       response.data = toCamelCase(response.data)

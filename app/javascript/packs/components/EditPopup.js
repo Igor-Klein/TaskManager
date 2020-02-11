@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, Form} from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
 
@@ -27,9 +27,9 @@ export default class EditPopup extends React.Component {
   }
 
   loadCard = cardId => {
-    this.setState({isLoading: true})
-    TaskRepository.show(cardId).then(({data}) => {
-      this.setState({task: data, isLoading: false})
+    this.setState({ isLoading: true })
+    TaskRepository.show(cardId).then(({ data }) => {
+      this.setState({ task: data, isLoading: false })
     })
   }
 
@@ -38,16 +38,16 @@ export default class EditPopup extends React.Component {
   }
 
   handleNameChange = e => {
-    this.setState({task: {...this.state.task, name: e.target.value}})
+    this.setState({ task: { ...this.state.task, name: e.target.value } })
   }
 
   handleDecriptionChange = e => {
-    this.setState({task: {...this.state.task, description: e.target.value}})
+    this.setState({ task: { ...this.state.task, description: e.target.value } })
   }
 
   handleCardEdit = () => {
-    const {name, description, author, state} = this.state.task
-    const {cardId, onClose} = this.props
+    const { name, description, author, state } = this.state.task
+    const { cardId, onClose } = this.props
     TaskRepository.update(cardId, {
       task: {
         name: name,
@@ -67,10 +67,10 @@ export default class EditPopup extends React.Component {
   }
 
   render() {
-    const {show, onClose} = this.props
-    const {isLoading} = this.state
-    const {id, state, name, description} = this.state.task
-    const {firstName, lastName} = this.state.task.author
+    const { show, onClose } = this.props
+    const { isLoading } = this.state
+    const { id, state, name, description } = this.state.task
+    const { firstName, lastName } = this.state.task.author
 
     if (isLoading) {
       return (

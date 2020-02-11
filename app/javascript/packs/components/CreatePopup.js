@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, Form} from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
 
@@ -15,13 +15,13 @@ export default class CreatePopup extends React.Component {
     }
   }
   handleNameChange = e => {
-    this.setState({name: e.target.value})
+    this.setState({ name: e.target.value })
   }
   handleDecriptionChange = e => {
-    this.setState({description: e.target.value})
+    this.setState({ description: e.target.value })
   }
   handleCardCreate = () => {
-    const {name, description, assignee} = this.state
+    const { name, description, assignee } = this.state
     TaskRepository.create({
       task: {
         name,
@@ -37,8 +37,8 @@ export default class CreatePopup extends React.Component {
     })
   }
   render() {
-    const {show, onClose, onTaskCreate} = this.props
-    const {name, description} = this.state
+    const { show, onClose, onTaskCreate } = this.props
+    const { name, description } = this.state
     return (
       <Modal size="lg" animation={false} show={show} onHide={onClose}>
         <Modal.Header closeButton>

@@ -1,4 +1,4 @@
-import {fetch} from './Fetch'
+import { fetch } from './Fetch'
 
 export default {
   get(url) {
