@@ -1,4 +1,3 @@
-import { fetch } from './Fetch'
 import FetchHelper from './FetchHelper'
 
 export default {
@@ -14,11 +13,6 @@ export default {
 
   index(state, page) {
     const url = window.Routes.api_v1_tasks_path({ q: { state_eq: state }, page, per_page: 10, format: 'json' })
-    return FetchHelper.get(url)
-  },
-
-  userShowIndex(params) {
-    const url = window.Routes.api_v1_users_path({ q: { first_name_or_last_name_cont: params }, format: 'json' })
     return FetchHelper.get(url)
   },
 

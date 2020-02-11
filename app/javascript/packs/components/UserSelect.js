@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import AsyncSelect from 'react-select/async'
-import { fetch } from './Fetch'
-import TaskRepository from './TaskRepository'
+import UserRepository from './UserRepository'
 import PropTypes from 'prop-types'
 
 export default class UserSelect extends Component {
@@ -15,7 +14,7 @@ export default class UserSelect extends Component {
     return option.id
   }
   loadOptions = inputValue => {
-    return TaskRepository.userShowIndex(inputValue).then(({ data }) => {
+    return UserRepository.index(inputValue).then(({ data }) => {
       return data.items
     })
   }
