@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
+import UserSelect from './UserSelect'
 
 export default class EditPopup extends React.Component {
   state = {
@@ -46,13 +47,14 @@ export default class EditPopup extends React.Component {
   }
 
   handleCardEdit = () => {
-    const { name, description, author, state } = this.state.task
+    const { name, description, author, state, assignee } = this.state.task
     const { cardId, onClose } = this.props
     TaskRepository.update(cardId, {
       task: {
         name: name,
         description: description,
         authorId: author.id,
+        assigneeId: assignee.id,
         state: state
       }
     }).then(() => {
@@ -64,6 +66,14 @@ export default class EditPopup extends React.Component {
     TaskRepository.destroy(this.props.cardId).then(() => {
       this.props.onClose(this.state.task.state)
     })
+  }
+
+  handleAuthorChange = value => {
+    this.setState({ task: { ...this.state.task, author: value } })
+  }
+
+  handleAssigneeChange = value => {
+    this.setState({ task: { ...this.state.task, assignee: value } })
   }
 
   render() {
@@ -120,9 +130,15 @@ export default class EditPopup extends React.Component {
                   Author: {firstName} {lastName}
                 </Form.Label>
               </Form.Group>
+              <UserSelect
+                id="Author"
+                isDisabled="true"
+                value={this.state.task.author}
+                onChange={this.handleAuthorChange}
+              />
+              <UserSelect id="Assignee" onChange={this.handleAssigneeChange} value={this.state.task.assignee} />
             </Form>
           </Modal.Body>
-
           <Modal.Footer>
             <Button variant="danger" onClick={this.handleCardDelete}>
               Delete

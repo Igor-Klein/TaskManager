@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
+import UserSelect from './UserSelect'
 
 export default class CreatePopup extends React.Component {
   state = {
@@ -22,6 +23,7 @@ export default class CreatePopup extends React.Component {
   }
   handleCardCreate = () => {
     const { name, description, assignee } = this.state
+
     TaskRepository.create({
       task: {
         name,
@@ -35,6 +37,10 @@ export default class CreatePopup extends React.Component {
         description: ''
       })
     })
+  }
+
+  handleAssigneeChange = value => {
+    this.setState({ ...this.state.task, assignee: value })
   }
   render() {
     const { show, onClose, onTaskCreate } = this.props
@@ -65,6 +71,7 @@ export default class CreatePopup extends React.Component {
                 onChange={this.handleDecriptionChange}
               />
             </Form.Group>
+            <UserSelect id="Assignee" onChange={this.handleAssigneeChange} value={this.state.assignee} />
           </Form>
         </Modal.Body>
         <Modal.Footer>
