@@ -4,11 +4,9 @@ import UserRepository from './UserRepository'
 import PropTypes from 'prop-types'
 
 export default class UserSelect extends Component {
-  state = {
-    inputValue: ''
-  }
   getOptionLabel = option => {
-    return option.firstName + ' ' + option.lastName
+    const { firstName, lastName } = option
+    return `${firstName} ${lastName}`
   }
   getOptionValue = option => {
     return option.id
@@ -18,11 +16,7 @@ export default class UserSelect extends Component {
       return data.items
     })
   }
-  handleInputChange = newValue => {
-    const inputValue = newValue.replace(/\W/g, '')
-    this.setState({ inputValue })
-    return inputValue
-  }
+
   componentDidMount() {
     this.loadOptions()
   }
@@ -35,7 +29,6 @@ export default class UserSelect extends Component {
           cacheOptions
           loadOptions={this.loadOptions}
           defaultOptions
-          onInputChange={this.handleInputChange}
           getOptionLabel={this.getOptionLabel}
           getOptionValue={this.getOptionValue}
           isDisabled={isDisabled}
@@ -48,7 +41,7 @@ export default class UserSelect extends Component {
 }
 
 UserSelect.propTypes = {
-  value: PropTypes.number.isRequired,
-  isDisabled: PropTypes.any.isRequired,
+  value: PropTypes.object.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 }
