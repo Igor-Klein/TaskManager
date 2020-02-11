@@ -7,11 +7,11 @@ html lang="en"
     title= content_for?(:title) ? yield(:title) : "Tutorial_project"
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
-    = javascript_include_tag "application"
-    = javascript_pack_tag "application"
+    
+    
 
   body
-  .navbar.navbar-default.navbar-static-top
+    .navbar.navbar-default.navbar-static-top
       .container
         .row
           button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
@@ -43,5 +43,6 @@ html lang="en"
 
     footer
       p
-      p &copy; Company 2019
-  
+      p © Company 2020
+  = javascript_pack_tag "application"
+  = javascript_include_tag "application"
