@@ -40,7 +40,7 @@ export default class CreatePopup extends React.Component {
   }
 
   handleAssigneeChange = value => {
-    this.setState({ ...this.state.task, assignee: value })
+    this.setState({ ...this.state, assignee: value })
   }
   render() {
     const { show, onClose, onTaskCreate } = this.props
@@ -71,7 +71,7 @@ export default class CreatePopup extends React.Component {
                 onChange={this.handleDecriptionChange}
               />
             </Form.Group>
-            <UserSelect id="Assignee" onChange={this.handleAssigneeChange} value={this.state.assignee} />
+            <UserSelect placeholder="Assignee" onChange={this.handleAssigneeChange} />
           </Form>
         </Modal.Body>
         <Modal.Footer>

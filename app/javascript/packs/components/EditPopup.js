@@ -24,8 +24,7 @@ export default class EditPopup extends React.Component {
         email: null
       }
     },
-    isLoading: true,
-    isDisabled: true
+    isLoading: true
   }
 
   loadCard = cardId => {
@@ -132,12 +131,16 @@ export default class EditPopup extends React.Component {
                 </Form.Label>
               </Form.Group>
               <UserSelect
-                id="Author"
-                isDisabled={this.isDisabled}
+                placeholder="Author"
+                isDisabled={false}
                 value={this.state.task.author}
                 onChange={this.handleAuthorChange}
               />
-              <UserSelect id="Assignee" onChange={this.handleAssigneeChange} value={this.state.task.assignee} />
+              <UserSelect
+                placeholder="Assignee"
+                onChange={this.handleAssigneeChange}
+                value={this.state.task.assignee}
+              />
             </Form>
           </Modal.Body>
           <Modal.Footer>

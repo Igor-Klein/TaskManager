@@ -21,10 +21,11 @@ export default class UserSelect extends Component {
     this.loadOptions()
   }
   render() {
-    const { isDisabled, value, onChange } = this.props
+    const { isDisabled, value, onChange, placeholder } = this.props
 
     return (
       <div>
+        <div>Change {placeholder}:</div>
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}
@@ -33,6 +34,7 @@ export default class UserSelect extends Component {
           getOptionValue={this.getOptionValue}
           isDisabled={isDisabled}
           defaultValue={value}
+          placeholder={placeholder}
           onChange={onChange}
         />
       </div>
@@ -41,7 +43,7 @@ export default class UserSelect extends Component {
 }
 
 UserSelect.propTypes = {
-  value: PropTypes.object.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  value: PropTypes.object,
+  isDisabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired
 }
