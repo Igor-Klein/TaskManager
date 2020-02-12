@@ -130,17 +130,24 @@ export default class EditPopup extends React.Component {
                   Author: {firstName} {lastName}
                 </Form.Label>
               </Form.Group>
-              <UserSelect
-                placeholder="Author"
-                isDisabled={false}
-                value={this.state.task.author}
-                onChange={this.handleAuthorChange}
-              />
-              <UserSelect
-                placeholder="Assignee"
-                onChange={this.handleAssigneeChange}
-                value={this.state.task.assignee}
-              />
+              <Form.Group controlId="formChangeAuthor">
+                <Form.Label>Change Author:</Form.Label>
+
+                <UserSelect
+                  placeholder="Author"
+                  isDisabled={false}
+                  value={this.state.task.author}
+                  onChange={this.handleAuthorChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="formChangeAssignee">
+                <Form.Label>Change Assignee:</Form.Label>
+                <UserSelect
+                  placeholder="Assignee"
+                  onChange={this.handleAssigneeChange}
+                  value={this.state.task.assignee}
+                />
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -161,7 +168,7 @@ export default class EditPopup extends React.Component {
 }
 
 EditPopup.propTypes = {
-  cardId: PropTypes.number.isRequired,
+  cardId: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }

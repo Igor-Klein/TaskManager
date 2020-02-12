@@ -71,6 +71,7 @@ export default class CreatePopup extends React.Component {
                 onChange={this.handleDecriptionChange}
               />
             </Form.Group>
+            <Form.Group controlId="formChangeAssignee">Select Assignee:</Form.Group>
             <UserSelect placeholder="Assignee" onChange={this.handleAssigneeChange} />
           </Form>
         </Modal.Body>

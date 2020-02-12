@@ -25,7 +25,6 @@ export default class UserSelect extends Component {
 
     return (
       <div>
-        <div>Change {placeholder}:</div>
         <AsyncSelect
           cacheOptions
           loadOptions={this.loadOptions}
@@ -43,7 +42,8 @@ export default class UserSelect extends Component {
 }
 
 UserSelect.propTypes = {
-  value: PropTypes.object,
   isDisabled: PropTypes.bool,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.object
 }
