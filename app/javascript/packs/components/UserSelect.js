@@ -1,51 +1,44 @@
-// import React, { Component } from 'react'
 import AsyncSelect from 'react-select/async'
 import UserRepository from './UserRepository'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
-function UserSelect(props) {
-
-  getOptionLabel = option => {
+export default function UserSelect(props) {
+  const getOptionLabel = option => {
     const { firstName, lastName } = option
     return `${firstName} ${lastName}`
   }
-  getOptionValue = option => {
+  const getOptionValue = option => {
     return option.id
   }
-  loadOptions = inputValue => {
+  const loadOptions = inputValue => {
     return UserRepository.index(inputValue).then(({ data }) => {
       return data.items
     })
   }
 
   useEffect(() => {
-  this.loadOptions()
-});
+    loadOptions()
+  })
 
-  
-  
-    const { isDisabled, value, onChange, placeholder } = this.props
+  const { isDisabled, value, onChange, placeholder } = props
 
-    return (
-      <div>
-        <AsyncSelect
-          cacheOptions
-          loadOptions={this.loadOptions}
-          defaultOptions
-          getOptionLabel={this.getOptionLabel}
-          getOptionValue={this.getOptionValue}
-          isDisabled={isDisabled}
-          defaultValue={value}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
-      </div>
-    )
-  
+  return (
+    <div>
+      <AsyncSelect
+        cacheOptions
+        loadOptions={loadOptions}
+        defaultOptions
+        getOptionLabel={getOptionLabel}
+        getOptionValue={getOptionValue}
+        isDisabled={isDisabled}
+        defaultValue={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </div>
+  )
 }
-
-export default UserSelect;
 
 UserSelect.propTypes = {
   isDisabled: PropTypes.bool,
