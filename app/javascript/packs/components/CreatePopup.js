@@ -1,28 +1,24 @@
-import React from 'react'
+// import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
 import UserSelect from './UserSelect'
+import React, { useState } from 'react';
 
-export default class CreatePopup extends React.Component {
-  state = {
-    name: '',
-    description: '',
-    assignee: {
+function CreatePopup(props) {
+  
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [assignee, setAssignee] = useState({
       id: null,
       firstName: null,
       lastName: null,
       email: null
-    }
-  }
-  handleNameChange = e => {
-    this.setState({ name: e.target.value })
-  }
-  handleDecriptionChange = e => {
-    this.setState({ description: e.target.value })
-  }
+    });
+  
   handleCardCreate = () => {
-    const { name, description, assignee } = this.state
+    // const { name, description, assignee } = this.state
 
     TaskRepository.create({
       task: {
@@ -32,19 +28,15 @@ export default class CreatePopup extends React.Component {
       }
     }).then(() => {
       this.props.onTaskCreate()
-      this.setState({
-        name: '',
-        description: ''
-      })
+      setName('')
+      setDescription('')
     })
   }
 
-  handleAssigneeChange = value => {
-    this.setState({ ...this.state, assignee: value })
-  }
-  render() {
+  
+  
     const { show, onClose, onTaskCreate } = this.props
-    const { name, description } = this.state
+    // const { name, description } = this.state
     return (
       <Modal size="lg" animation={false} show={show} onHide={onClose}>
         <Modal.Header closeButton>
@@ -58,7 +50,7 @@ export default class CreatePopup extends React.Component {
                 type="text"
                 value={name}
                 placeholder="Set the name for the task"
-                onChange={this.handleNameChange}
+                onChange={setName(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="formDescriptionName">
@@ -68,11 +60,11 @@ export default class CreatePopup extends React.Component {
                 rows="3"
                 value={description}
                 placeholder="Set the description for the task"
-                onChange={this.handleDecriptionChange}
+                onChange={setDecription(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="formChangeAssignee">Select Assignee:</Form.Group>
-            <UserSelect placeholder="Assignee" onChange={this.handleAssigneeChange} />
+            <UserSelect placeholder="Assignee" onChange={setAssigne(value)} />
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -85,8 +77,10 @@ export default class CreatePopup extends React.Component {
         </Modal.Footer>
       </Modal>
     )
-  }
+  
 }
+
+export default CreatePopup;
 
 CreatePopup.propTypes = {
   show: PropTypes.bool.isRequired,
