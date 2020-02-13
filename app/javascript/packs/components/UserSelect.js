@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
 import AsyncSelect from 'react-select/async'
 import UserRepository from './UserRepository'
 import PropTypes from 'prop-types'
+import React, { useEffect } from 'react';
 
-export default class UserSelect extends Component {
+function UserSelect(props) {
+
   getOptionLabel = option => {
     const { firstName, lastName } = option
     return `${firstName} ${lastName}`
@@ -17,10 +19,12 @@ export default class UserSelect extends Component {
     })
   }
 
-  componentDidMount() {
-    this.loadOptions()
-  }
-  render() {
+  useEffect(() => {
+  this.loadOptions()
+});
+
+  
+  
     const { isDisabled, value, onChange, placeholder } = this.props
 
     return (
@@ -38,8 +42,10 @@ export default class UserSelect extends Component {
         />
       </div>
     )
-  }
+  
 }
+
+export default UserSelect;
 
 UserSelect.propTypes = {
   isDisabled: PropTypes.bool,
