@@ -7,7 +7,6 @@ import UserSelect from './UserSelect'
 
 const EditPopup = props => {
   const [isLoading, setIsLoading] = useState(true)
-
   const [task, setTask] = useState({
     id: null,
     name: '',
@@ -79,7 +78,7 @@ const EditPopup = props => {
   }
 
   const { show, onClose } = props
-  // const { firstName, lastName } = task.author
+  const { firstName, lastName } = task.author
 
   if (isLoading) {
     return (
@@ -125,11 +124,12 @@ const EditPopup = props => {
               />
             </Form.Group>
             <Form.Group controlId="formFullName">
-              <Form.Label>{/* Author: {task.author.firstName} {task.author.lastName} */}</Form.Label>
+              <Form.Label>
+              Author: {task.author.firstName} {task.author.lastName}
+              </Form.Label>
             </Form.Group>
             <Form.Group controlId="formChangeAuthor">
               <Form.Label>Change Author:</Form.Label>
-
               <UserSelect placeholder="Author" isDisabled={false} value={task.author} onChange={handleAuthorChange} />
             </Form.Group>
             <Form.Group controlId="formChangeAssignee">
