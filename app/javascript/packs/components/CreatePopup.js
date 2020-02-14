@@ -1,10 +1,10 @@
 import { Modal, Button, Form } from 'react-bootstrap'
-import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
-import UserSelect from './UserSelect'
 import React, { useState } from 'react'
+import TaskRepository from './TaskRepository'
+import UserSelect from './UserSelect'
 
-function CreatePopup(props) {
+const CreatePopup = props => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [assignee, setAssignee] = useState({

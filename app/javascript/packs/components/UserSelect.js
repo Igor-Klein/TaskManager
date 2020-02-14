@@ -1,7 +1,7 @@
 import AsyncSelect from 'react-select/async'
-import UserRepository from './UserRepository'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import UserRepository from './UserRepository'
 
 export default function UserSelect(props) {
   const getOptionLabel = option => {
@@ -19,7 +19,7 @@ export default function UserSelect(props) {
 
   useEffect(() => {
     loadOptions()
-  })
+  }, [])
 
   const { isDisabled, value, onChange, placeholder } = props
 
