@@ -1,4 +1,3 @@
-// import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
@@ -54,8 +53,8 @@ const EditPopup = props => {
       task: {
         name,
         description,
-        authorId: author.id,
-        assigneeId: assignee.id,
+        author: author,
+        assignee: assignee,
         state
       }
     }).then(() => {
@@ -125,7 +124,7 @@ const EditPopup = props => {
             </Form.Group>
             <Form.Group controlId="formFullName">
               <Form.Label>
-              Author: {task.author.firstName} {task.author.lastName}
+                Author: {task.author.firstName} {task.author.lastName}
               </Form.Label>
             </Form.Group>
             <Form.Group controlId="formChangeAuthor">
