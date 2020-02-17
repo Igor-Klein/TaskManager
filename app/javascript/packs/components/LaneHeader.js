@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 
 export default class LaneHeader extends React.Component {
   render() {
+    const { id, cards, totalCount } = this.props
     return (
       <div>
-        <b>{this.props.id}</b> ({this.props.cards.length}/{this.props.totalCount})
+        <b>{id}</b> ({cards.length}/{totalCount})
       </div>
     )
   }
