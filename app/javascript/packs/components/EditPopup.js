@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react'
 import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
-const EditPopup = props => {
-  const { cardId, onClose, show } = props
+const EditPopup = ({ cardId, onClose, show } = props) => {
   const [isLoading, setIsLoading] = useState(true)
   const [task, setTask] = useState({
     id: null,
@@ -53,8 +52,8 @@ const EditPopup = props => {
       task: {
         name,
         description,
-        author: author,
-        assignee: assignee,
+        author,
+        assignee,
         state
       }
     }).then(() => {

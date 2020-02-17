@@ -44,5 +44,8 @@ UserSelect.propTypes = {
   isDisabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
-  value: PropTypes.object
+  value: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired
+  })
 }

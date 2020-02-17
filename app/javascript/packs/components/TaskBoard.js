@@ -1,14 +1,15 @@
 import { hot } from 'react-hot-loader/root'
 import Board from 'react-trello'
-import LaneHeader from './LaneHeader'
 import Button from 'react-bootstrap/Button'
+import React, { useState, useEffect } from 'react'
+import { snakeCase } from 'change-case'
+import LaneHeader from './LaneHeader'
 import CreatePopup from './CreatePopup'
 import EditPopup from './EditPopup'
 import TaskRepository from './TaskRepository'
-import React, { useState, useEffect } from 'react'
 
 const components = {
-  LaneHeader: LaneHeader
+  LaneHeader
 }
 
 const TasksBoard = props => {
@@ -16,11 +17,11 @@ const TasksBoard = props => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [editCardId, setEditCardId] = useState(null)
   const [board, setBoard] = useState({
-    new_task: null,
-    in_development: null,
-    in_qa: null,
-    in_code_review: null,
-    ready_for_release: null,
+    newTask: null,
+    inDevelopment: null,
+    inQa: null,
+    inCodeReview: null,
+    readyForRelease: null,
     released: null,
     archived: null
   })
@@ -47,11 +48,11 @@ const TasksBoard = props => {
   const getBoard = () => {
     return {
       lanes: [
-        generateLane('new_task', 'New'),
-        generateLane('in_development', 'In Dev'),
-        generateLane('in_qa', 'In QA'),
-        generateLane('in_code_review', 'in CR'),
-        generateLane('ready_for_release', 'Ready for release'),
+        generateLane('newTask', 'New'),
+        generateLane('inDevelopment', 'In Dev'),
+        generateLane('inQa', 'In QA'),
+        generateLane('inCodeReview', 'in CR'),
+        generateLane('readyForRelease', 'Ready for release'),
         generateLane('released', 'Released'),
         generateLane('archived', 'Archived')
       ]
@@ -68,8 +69,8 @@ const TasksBoard = props => {
       fetchLine('in_qa'),
       fetchLine('in_code_review')
     ]).then(data => {
-      const [new_task, archived, in_development, released, ready_for_release, in_qa, in_code_review] = data
-      setBoard({ new_task, in_development, in_qa, in_code_review, ready_for_release, released, archived })
+      const [newTask, archived, inDevelopment, released, readyForRelease, inQa, inCodeReview] = data
+      setBoard({ newTask, inDevelopment, inQa, inCodeReview, readyForRelease, released, archived })
     })
   }
 
@@ -96,7 +97,7 @@ const TasksBoard = props => {
   }
 
   const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    TaskRepository.update(cardId, { task: { state: targetLaneId } }).then(() => {
+    TaskRepository.update(cardId, { task: { state: snakeCase(targetLaneId) } }).then(() => {
       loadLines()
     })
   }
@@ -112,8 +113,8 @@ const TasksBoard = props => {
   const handleTaskCreated = () => {
     handleCreateHide()
     Promise.all([fetchLine('new_task')]).then(data => {
-      const [new_task] = data
-      setBoard({ ...board, new_task })
+      const [newTask] = data
+      setBoard({ ...board, newTask })
     })
   }
 
