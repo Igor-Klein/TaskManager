@@ -95,7 +95,7 @@ const TasksBoard = props => {
     })
   }
 
-  const handleDragEnd = (cardId, targetLaneId) => {
+  const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     TaskRepository.update(cardId, { task: { state: targetLaneId } }).then(() => {
       loadLines()
     })

@@ -5,6 +5,7 @@ import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
 const EditPopup = props => {
+  const { cardId, onClose, show } = props
   const [isLoading, setIsLoading] = useState(true)
   const [task, setTask] = useState({
     id: null,
@@ -13,14 +14,14 @@ const EditPopup = props => {
     state: null,
     author: {
       id: null,
-      first_name: null,
-      last_name: null,
+      firstName: null,
+      lastName: null,
       email: null
     },
     assignee: {
       id: null,
-      first_name: null,
-      last_name: null,
+      firstName: null,
+      lastName: null,
       email: null
     }
   })
@@ -34,8 +35,8 @@ const EditPopup = props => {
   }
 
   useEffect(() => {
-    loadCard(props.cardId)
-  }, [props.cardId])
+    loadCard(cardId)
+  }, [cardId])
 
   const handleNameChange = e => {
     setTask({ ...task, name: e.target.value })
@@ -47,7 +48,6 @@ const EditPopup = props => {
 
   const handleCardEdit = () => {
     const { name, description, author, state, assignee } = task
-    const { cardId, onClose } = props
 
     TaskRepository.update(cardId, {
       task: {
@@ -63,8 +63,8 @@ const EditPopup = props => {
   }
 
   const handleCardDelete = () => {
-    TaskRepository.destroy(props.cardId).then(() => {
-      props.onClose(task.state)
+    TaskRepository.destroy(cardId).then(() => {
+      onClose(task.state)
     })
   }
 
@@ -76,8 +76,9 @@ const EditPopup = props => {
     setTask({ ...task, assignee: { ...value } })
   }
 
-  const { show, onClose } = props
-  const { firstName, lastName } = task.author
+  const { name, description, author, id, state, assignee } = task
+
+  const { firstName, lastName } = author
 
   if (isLoading) {
     return (
@@ -97,7 +98,7 @@ const EditPopup = props => {
       <Modal animation={false} show={show} onHide={onClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            Task # {task.id} [{task.state}]
+            Task # {id} [{state}]
           </Modal.Title>
         </Modal.Header>
 
@@ -107,7 +108,7 @@ const EditPopup = props => {
               <Form.Label>Task name:</Form.Label>
               <Form.Control
                 type="text"
-                value={task.name}
+                value={name}
                 placeholder="Set the name for the task"
                 onChange={handleNameChange}
               />
@@ -117,23 +118,23 @@ const EditPopup = props => {
               <Form.Control
                 as="textarea"
                 rows="3"
-                value={task.description}
+                value={description}
                 placeholder="Set the description for the task"
                 onChange={handleDecriptionChange}
               />
             </Form.Group>
             <Form.Group controlId="formFullName">
               <Form.Label>
-                Author: {task.author.firstName} {task.author.lastName}
+                Author: {firstName} {lastName}
               </Form.Label>
             </Form.Group>
             <Form.Group controlId="formChangeAuthor">
               <Form.Label>Change Author:</Form.Label>
-              <UserSelect placeholder="Author" isDisabled={false} value={task.author} onChange={handleAuthorChange} />
+              <UserSelect placeholder="Author" isDisabled={false} value={author} onChange={handleAuthorChange} />
             </Form.Group>
             <Form.Group controlId="formChangeAssignee">
               <Form.Label>Change Assignee:</Form.Label>
-              <UserSelect placeholder="Assignee" onChange={handleAssigneeChange} value={task.assignee} />
+              <UserSelect placeholder="Assignee" onChange={handleAssigneeChange} value={assignee} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -153,10 +154,10 @@ const EditPopup = props => {
   )
 }
 
-export default EditPopup
-
 EditPopup.propTypes = {
   cardId: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }
+
+export default EditPopup

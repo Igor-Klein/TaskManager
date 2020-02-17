@@ -5,6 +5,7 @@ import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
 const CreatePopup = props => {
+  const { show, onClose, onTaskCreate } = props
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [assignee, setAssignee] = useState({
@@ -22,7 +23,7 @@ const CreatePopup = props => {
         assigneeId: assignee.id
       }
     }).then(() => {
-      props.onTaskCreate()
+      onTaskCreate()
       setName('')
       setDescription('')
     })
@@ -39,7 +40,6 @@ const CreatePopup = props => {
     setAssignee(value)
   }
 
-  const { show, onClose, onTaskCreate } = props
   return (
     <Modal size="lg" animation={false} show={show} onHide={onClose}>
       <Modal.Header closeButton>
@@ -82,10 +82,10 @@ const CreatePopup = props => {
   )
 }
 
-export default CreatePopup
-
 CreatePopup.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onTaskCreate: PropTypes.func.isRequired
 }
+
+export default CreatePopup
