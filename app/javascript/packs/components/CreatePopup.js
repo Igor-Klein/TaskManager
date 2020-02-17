@@ -1,29 +1,20 @@
-import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import TaskRepository from './TaskRepository'
 import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
-export default class CreatePopup extends React.Component {
-  state = {
-    name: '',
-    description: '',
-    assignee: {
-      id: null,
-      firstName: null,
-      lastName: null,
-      email: null
-    }
-  }
-  handleNameChange = e => {
-    this.setState({ name: e.target.value })
-  }
-  handleDecriptionChange = e => {
-    this.setState({ description: e.target.value })
-  }
-  handleCardCreate = () => {
-    const { name, description, assignee } = this.state
+const CreatePopup = ({ show, onClose, onTaskCreate }) => {
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [assignee, setAssignee] = useState({
+    id: null,
+    firstName: null,
+    lastName: null,
+    email: null
+  })
 
+  const handleCardCreate = () => {
     TaskRepository.create({
       task: {
         name,
@@ -31,61 +22,63 @@ export default class CreatePopup extends React.Component {
         assigneeId: assignee.id
       }
     }).then(() => {
-      this.props.onTaskCreate()
-      this.setState({
-        name: '',
-        description: ''
-      })
+      onTaskCreate()
+      setName('')
+      setDescription('')
     })
   }
 
-  handleAssigneeChange = value => {
-    this.setState({ ...this.state, assignee: value })
+  const handleNameChange = e => {
+    setName(e.target.value)
   }
-  render() {
-    const { show, onClose, onTaskCreate } = this.props
-    const { name, description } = this.state
-    return (
-      <Modal size="lg" animation={false} show={show} onHide={onClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>New task</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formTaskName">
-              <Form.Label>Task name:</Form.Label>
-              <Form.Control
-                type="text"
-                value={name}
-                placeholder="Set the name for the task"
-                onChange={this.handleNameChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formDescriptionName">
-              <Form.Label>Task description:</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows="3"
-                value={description}
-                placeholder="Set the description for the task"
-                onChange={this.handleDecriptionChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formChangeAssignee">Select Assignee:</Form.Group>
-            <UserSelect placeholder="Assignee" onChange={this.handleAssigneeChange} />
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.handleCardCreate}>
-            Save changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    )
+  const handleDecriptionChange = e => {
+    setDescription(e.target.value)
   }
+
+  const handleAssigneeChange = value => {
+    setAssignee(value)
+  }
+
+  return (
+    <Modal size="lg" animation={false} show={show} onHide={onClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>New task</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group controlId="formTaskName">
+            <Form.Label>Task name:</Form.Label>
+            <Form.Control
+              type="text"
+              value={name}
+              placeholder="Set the name for the task"
+              onChange={handleNameChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formDescriptionName">
+            <Form.Label>Task description:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="3"
+              value={description}
+              placeholder="Set the description for the task"
+              onChange={handleDecriptionChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formChangeAssignee">Select Assignee:</Form.Group>
+          <UserSelect placeholder="Assignee" onChange={handleAssigneeChange} />
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleCardCreate}>
+          Save changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  )
 }
 
 CreatePopup.propTypes = {
@@ -93,3 +86,5 @@ CreatePopup.propTypes = {
   onClose: PropTypes.func.isRequired,
   onTaskCreate: PropTypes.func.isRequired
 }
+
+export default CreatePopup
