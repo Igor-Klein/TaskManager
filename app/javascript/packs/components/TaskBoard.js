@@ -112,8 +112,8 @@ const TasksBoard = props => {
 
   const handleTaskCreated = () => {
     handleCreateHide()
-    Promise.all([fetchLine('new_task')]).then(data => {
-      const [newTask] = data
+    fetchLine('new_task').then(data => {
+      const newTask = data
       setBoard({ ...board, newTask })
     })
   }

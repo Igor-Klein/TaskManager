@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
-const CreatePopup = ({ show, onClose, onTaskCreate } = prop) => {
+const CreatePopup = ({ show, onClose, onTaskCreate }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [assignee, setAssignee] = useState({

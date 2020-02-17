@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import TaskRepository from './TaskRepository'
 import UserSelect from './UserSelect'
 
-const EditPopup = ({ cardId, onClose, show } = props) => {
+const EditPopup = ({ cardId, onClose, show }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [task, setTask] = useState({
     id: null,
