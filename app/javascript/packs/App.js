@@ -1,17 +1,27 @@
 import React from 'react'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import TaskBoard from './components/TaskBoard'
+import BoardContainer from './containers/Board';
 
-import store from './components/store';
+
+import store from './store'
 
 export default class App extends React.Component {
   render() {
-    return (
+    return (  
+
       <div>
         {/* <TaskBoard /> */}
         <Provider store={store}>
-        <TaskBoard />
-      </Provider>,
+
+         <BoardContainer>
+      {({ board, loading }) => (
+        <TaskBoard board={board}/>
+      )}
+
+      </BoardContainer>
+        </Provider>
+        ,
       </div>
     )
   }

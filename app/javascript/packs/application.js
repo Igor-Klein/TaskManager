@@ -7,7 +7,6 @@ import WebpackerReact from 'webpacker-react'
 // import TaskBoard from './components/TaskBoard'
 import App from './App'
 
-
 WebpackerReact.setup({ App })
 
 // Uncomment to copy all static images under ../images to the output folder and reference

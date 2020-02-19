@@ -7,6 +7,7 @@ import LaneHeader from './LaneHeader'
 import CreatePopup from './CreatePopup'
 import EditPopup from './EditPopup'
 import TaskRepository from './TaskRepository'
+// import TasksContainer from './containers/Tasks';
 
 const components = {
   LaneHeader
@@ -16,18 +17,18 @@ const TasksBoard = props => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [editCardId, setEditCardId] = useState(null)
-  const [board, setBoard] = useState({
-    newTask: null,
-    inDevelopment: null,
-    inQa: null,
-    inCodeReview: null,
-    readyForRelease: null,
-    released: null,
-    archived: null
-  })
+  // const [board, setBoard] = useState({
+  //   newTask: null,
+  //   inDevelopment: null,
+  //   inQa: null,
+  //   inCodeReview: null,
+  //   readyForRelease: null,
+  //   released: null,
+  //   archived: null
+  // })
 
   const generateLane = (id, title) => {
-    const tasks = board[id]
+    const tasks = props.board[id]
     return {
       id,
       title,
@@ -59,30 +60,30 @@ const TasksBoard = props => {
     }
   }
 
-  const loadLines = () => {
-    Promise.all([
-      fetchLine('new_task'),
-      fetchLine('archived'),
-      fetchLine('in_development'),
-      fetchLine('released'),
-      fetchLine('ready_for_release'),
-      fetchLine('in_qa'),
-      fetchLine('in_code_review')
-    ]).then(data => {
-      const [newTask, archived, inDevelopment, released, readyForRelease, inQa, inCodeReview] = data
-      setBoard({ newTask, inDevelopment, inQa, inCodeReview, readyForRelease, released, archived })
-    })
-  }
+  // const loadLines = () => {
+  //   Promise.all([
+  //     fetchLine('new_task'),
+  //     fetchLine('archived'),
+  //     fetchLine('in_development'),
+  //     fetchLine('released'),
+  //     fetchLine('ready_for_release'),
+  //     fetchLine('in_qa'),
+  //     fetchLine('in_code_review')
+  //   ]).then(data => {
+  //     const [newTask, archived, inDevelopment, released, readyForRelease, inQa, inCodeReview] = data
+  //     setBoard({ newTask, inDevelopment, inQa, inCodeReview, readyForRelease, released, archived })
+  //   })
+  // }
 
-  useEffect(() => {
-    loadLines()
-  }, [])
+  // useEffect(() => {
+  //   loadLines()
+  // }, [])
 
-  const fetchLine = (state, page = 1) => {
-    return TaskRepository.index(state, page).then(({ data }) => {
-      return data
-    })
-  }
+  // const fetchLine = (state, page = 1) => {
+  //   return TaskRepository.index(state, page).then(({ data }) => {
+  //     return data
+  //   })
+  // }
 
   const onLaneScroll = (requestedPage, state) => {
     return fetchLine(state, requestedPage).then(({ items }) => {
@@ -132,6 +133,9 @@ const TasksBoard = props => {
   const handleEditShow = () => {
     setIsEditModalOpen(true)
   }
+console.log();
+
+
 
   return (
     <div>
@@ -142,7 +146,7 @@ const TasksBoard = props => {
       <Board
         data={getBoard()}
         onLaneScroll={onLaneScroll}
-        cardsMeta={board}
+        cardsMeta={props.board}
         draggable
         laneDraggable={false}
         handleDragEnd={handleDragEnd}
@@ -152,7 +156,8 @@ const TasksBoard = props => {
       <CreatePopup show={isCreateModalOpen} onClose={handleCreateHide} onTaskCreate={handleTaskCreated} />
       {isEditModalOpen && <EditPopup show={isEditModalOpen} onClose={handleEditClose} cardId={editCardId} />}
     </div>
-  )
+    )
+  
 }
 
 export default hot(TasksBoard)
