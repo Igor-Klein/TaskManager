@@ -15,7 +15,7 @@
     "@rails/webpacker": "4.2.2",
     "@reduxjs/toolkit": "^1.2.3",
     "@ridi/object-case-converter": "^2.0.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "change-case": "^4.1.1",
     "eslint": "^6.8.0",
